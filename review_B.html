@@ -363,6 +363,23 @@ h1 {
 .bundleGallery{grid-template-columns:repeat(3,minmax(0,1fr))}.questionGroup .field,.multiField{scroll-margin-top:330px}.coreStatus{font-size:14px;padding:10px;background:#e5eeee;border-radius:8px;margin-top:10px}@media(max-width:600px){.questionGroup .field,.multiField{scroll-margin-top:15px}}
 
 header,main{max-width:1100px}.onlineStatus,.savedSafety{padding:12px;background:#e0f1eb;border:1px solid #b7d6ca;border-radius:9px;margin:12px 0}.offlineTools{background:#fff7dc;border-radius:10px;padding:14px;margin:14px 0}.offlineTools button{margin:4px}.ratingCard{max-width:none}#lockSafety{margin:20px 0;width:100%;font-weight:700}#complete{width:100%;font-weight:700}.toolbar{position:relative}.bundleGallery{position:static}.bundleGallery .photoCard img{height:190px}.questionGroup .field,.multiField{scroll-margin-top:20px}@media(max-width:600px){header,main{padding:12px}.photoGrid{grid-template-columns:1fr}.bundleGallery{grid-template-columns:1fr}.bundleGallery .photoCard img{height:200px}.bundleGallery button{font-size:15px;min-height:44px}.bundleGallery select{font-size:16px;min-height:44px}.multiChoice{padding:10px 0}h1{font-size:25px}.toolbar>*{flex:1 1 40%}select{font-size:16px}.topline{flex-wrap:wrap}}
+/* Presentation-only fix; issued assignments and response schema are unchanged. */
+details > summary {
+  min-height: 44px;
+  box-sizing: border-box;
+  padding: 10px 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+@media (max-width: 600px) {
+  .toolbar { flex-wrap: wrap; gap: 8px; }
+  .toolbar > button, .toolbar > .filebutton { flex: 1 1 calc(50% - 8px); min-width: 0; }
+  header, main, details, .identity, .identity label, .jumpLabel { min-width: 0; }
+  .identity input, textarea { font-size: 16px; }
+  .offlineTools button { max-width: 100%; white-space: normal; }
+}
+
 </style></head>
 <body><header><div class="topline"><a href="index.html">← Review home</a><span>MOBILE VERSION 1 · SAME V5 SAMPLE</span></div><h1 id="title"></h1>
 <div class="toolbar"><button id="export" class="primary">Save JSON</button><label class="filebutton">Resume JSON<input id="resume" type="file" aria-label="Resume from JSON" accept=".json,application/json"></label><button id="sendAnswers">Send saved answers</button><button id="unfinished">Next unfinished</button></div>

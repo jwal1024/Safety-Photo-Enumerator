@@ -1,5 +1,5 @@
-const SHELL='photo-mobile-shell-5a2ab70e0b30101b';
-self.addEventListener('install',event=>event.waitUntil(caches.open(SHELL).then(c=>c.addAll(['./','index.html','review_A.html','review_B.html','config.js'])).then(()=>self.skipWaiting())));
-self.addEventListener('activate',event=>event.waitUntil(self.clients.claim()));
+const SHELL='photo-mobile-shell-5a2ab70e0b30101b-phone2';
+self.addEventListener('install',event=>event.waitUntil(caches.open(SHELL).then(c=>c.addAll(['./','index.html','review_A.html','review_B.html','config.js'].map(p=>new Request(new URL(p,self.location.href),{cache:'reload'})))).then(()=>self.skipWaiting())));
+self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('photo-mobile-shell-')&&k!==SHELL).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',event=>{if(event.request.method!=='GET'||new URL(event.request.url).origin!==self.location.origin)return;
  event.respondWith((async()=>{if(new URL(event.request.url).pathname.endsWith('/config.js')){try{const r=await fetch(event.request,{cache:'no-store'});if(r.ok){const c=await caches.open(SHELL);await c.put(event.request,r.clone());return r;}}catch(e){}}const cached=await caches.match(event.request);if(cached)return cached;return fetch(event.request);})());});
