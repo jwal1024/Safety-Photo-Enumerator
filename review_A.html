@@ -1,0 +1,860 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Photo review · mobile version 1</title><style>:root {
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  color:#17323b;
+  background:#f2f6f6;
+  font-size:16px;
+  line-height:1.5}
+* {
+  box-sizing:border-box}
+body {
+  margin:0}
+header,main {
+  max-width:1400px;
+  margin:auto;
+  padding:18px 28px}
+header {
+  background:#fff;
+  border-bottom:1px solid #cedcdf}
+.topline {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  font-size:12px;
+  letter-spacing:.05em;
+  color:#526d74}
+a {
+  color:#105f6b}
+h1 {
+  font-size:29px;
+  margin:12px 0}
+h2 {
+  font-size:24px;
+  margin:10px 0}
+h3 {
+  font-size:18px;
+  margin:8px 0}
+p {
+  margin:8px 0 14px}
+button,select,input,textarea,.filebutton {
+  font:inherit}
+button,.filebutton {
+  padding:10px 14px;
+  border:1px solid #94acb2;
+  border-radius:8px;
+  background:#fff;
+  color:#17323b;
+  cursor:pointer;
+  min-height:44px}
+button:hover,.filebutton:hover {
+  background:#e9f3f3}
+button.primary {
+  background:#135e68;
+  color:white;
+  border-color:#135e68}
+button:disabled {
+  opacity:.45;
+  cursor:default}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible {
+  outline:3px solid #b46d10;
+  outline-offset:3px}
+.toolbar {
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center}
+.filebutton {
+  display:inline-block}
+.filebutton input {
+  display:block;
+  font-size:13px;
+  max-width:240px;
+  margin-top:4px}
+#status {
+  font-size:14px;
+  margin-top:12px;
+  color:#405e66}
+#message {
+  padding:12px;
+  background:#fff0ce;
+  color:#704513;
+  border:1px solid #cfac60;
+  border-radius:8px;
+  margin-top:12px}
+.identity {
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+  margin:4px 0 18px}
+.identity label {
+  flex:1;
+  min-width:200px;
+  max-width:450px;
+  font-weight:650}
+input:not([type=checkbox]),select,textarea {
+  display:block;
+  width:100%;
+  padding:10px;
+  border:1px solid #9db2b8;
+  border-radius:6px;
+  background:white;
+  color:#17323b;
+  margin:5px 0}
+input:disabled {
+  background:#e5eeee;
+  color:#4b646c}
+.guidance {
+  background:#e5eeee;
+  padding:14px 18px;
+  border-radius:10px;
+  margin-bottom:20px}
+summary {
+  cursor:pointer;
+  font-weight:650}
+.bundleNav {
+  display:flex;
+  align-items:end;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-bottom:20px}
+.jumpLabel {
+  flex:1;
+  min-width:220px}
+.jumpLabel select {
+  margin-bottom:0}
+.eyebrow {
+  font-size:12px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-weight:700;
+  color:#516d75}
+.bundleHeader {
+  margin-bottom:18px}
+.bundleHeader small {
+  display:block;
+  color:#526b72}
+.frameNav {
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin:14px 0}
+.frameNav strong {
+  margin-right:auto}
+.componentLayout {
+  display:grid;
+  grid-template-columns:minmax(300px,1.05fr) minmax(390px,1fr);
+  gap:24px;
+  align-items:start}
+.photoPanel {
+  position:sticky;
+  top:16px}
+.photoPanel img {
+  display:block;
+  width:100%;
+  max-height:74vh;
+  object-fit:contain;
+  background:#142128;
+  border-radius:10px;
+  cursor:zoom-in}
+.photoPanel button {
+  margin-top:8px}
+.questionPanel,.ratingCard,.finish,.photoCard {
+  background:#fff;
+  border:1px solid #d5e1e4;
+  border-radius:12px;
+  padding:20px}
+.field {
+  border-bottom:1px solid #e2e9eb;
+  padding:13px 0}
+.field:first-child {
+  padding-top:0}
+.field:last-child {
+  border-bottom:0}
+.field label {
+  display:block;
+  font-weight:650}
+.hint {
+  display:block;
+  font-size:13px;
+  line-height:1.45;
+  color:#536c73;
+  margin:5px 0}
+.quality {
+  background:#f3f7f8;
+  margin:-3px -6px 18px;
+  padding:14px;
+  border-radius:8px}
+.quality h3 {
+  margin-top:0}
+.photoGrid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+  margin:18px 0}
+.photoCard {
+  padding:10px}
+.photoCard img {
+  width:100%;
+  height:210px;
+  object-fit:contain;
+  background:#15272d;
+  cursor:zoom-in}
+.photoCard button {
+  font-size:14px;
+  width:100%;
+  margin-top:6px}
+.ratingCard {
+  max-width:850px}
+.ratingCard h3 {
+  font-size:22px}
+.answers {
+  display:grid;
+  gap:10px;
+  margin:16px 0}
+.answer {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:#f6f9f9;
+  border:1px solid #bbcdd2;
+  border-radius:8px;
+  padding:13px;
+  cursor:pointer}
+.answer:has(input:checked) {
+  background:#dceff0;
+  border-color:#135e68;
+  box-shadow:inset 3px 0 #135e68}
+.answer input {
+  width:20px;
+  height:20px;
+  flex-shrink:0;
+  accent-color:#135e68}
+.check {
+  display:flex;
+  gap:12px;
+  align-items:start;
+  margin-top:20px}
+.check input {
+  width:20px;
+  height:20px;
+  flex-shrink:0;
+  accent-color:#135e68}
+.finish {
+  margin:24px 0}
+.finish>label {
+  display:block;
+  font-weight:650;
+  margin:16px 0}
+textarea {
+  min-height:85px}
+.errorList {
+  color:#8a3c1e;
+  margin:12px 0}
+.completeBadge {
+  color:#17614a;
+  font-weight:700}
+.muted {
+  font-size:14px;
+  color:#536c73}
+.finishActions {
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:16px}
+dialog {
+  border:0;
+  border-radius:12px;
+  max-width:96vw;
+  max-height:96vh;
+  padding:14px;
+  background:#101e25;
+  color:white}
+dialog::backdrop {
+  background:#000b}
+dialog img {
+  display:block;
+  max-width:90vw;
+  max-height:82vh;
+  object-fit:contain;
+  margin-top:10px}
+dialog button {
+  display:block;
+  margin-left:auto}
+#frameProgress {
+  font-size:14px}
+select {
+  min-height:44px;
+  text-overflow:ellipsis}
+@media(max-width:1000px) {
+  .componentLayout {
+  grid-template-columns:1fr}
+.photoPanel {
+  position:static}
+.photoPanel img {
+  max-height:55vh}
+.photoGrid {
+  grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:600px) {
+  header,main {
+  padding:15px}
+h1 {
+  font-size:24px}
+.topline {
+  font-size:10px}
+.toolbar>*,.bundleNav>button {
+  flex:1}
+.bundleNav .jumpLabel {
+  order:-1;
+  flex-basis:100%}
+.componentLayout {
+  gap:14px}
+.questionPanel,.ratingCard,.finish {
+  padding:16px}
+.photoGrid {
+  grid-template-columns:1fr}
+.photoCard img {
+  height:240px}
+.identity {
+  gap:8px}
+.identity label {
+  max-width:none}
+.filebutton input {
+  max-width:200px}
+.frameNav button {
+  flex:1}
+}
+
+:root .filebutton {
+  position:relative;
+  overflow:hidden;
+  line-height:22px}
+
+:root .filebutton input {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  max-width:none;
+  margin:0;
+  opacity:0;
+  cursor:pointer}
+
+.filebutton:focus-within {
+  outline:3px solid #b46d10;
+  outline-offset:3px}
+
+@media(max-width:600px) {
+  .toolbar>button,.toolbar>.filebutton {
+  font-size:14px;
+  flex:1;
+  min-width:0;
+  text-align:center;
+  padding:10px 6px}
+.identity input {
+  padding:8px}
+.topline {
+  letter-spacing:0}
+}
+
+
+.questionGroup{max-width:none;margin-top:20px}.questionGroup .field{max-width:940px}.metaCard{max-width:none;margin-bottom:14px}.multiField{border:0;border-bottom:1px solid #d5e1e4;padding:15px 0;margin:0;min-width:0}.multiField legend{font-weight:650;float:left;width:100%;margin-bottom:10px}.multiField legend+label{clear:both}.multiChoice{display:flex;align-items:start;gap:10px;padding:7px 0}.multiChoice input[type=checkbox]{width:20px;height:20px;flex-shrink:0;margin-top:3px}.otherField{display:block;max-width:940px;font-weight:650;margin:12px 0}.bundleGallery{position:sticky;top:4px;z-index:2;background:#f2f6f6;padding:8px 0}.bundleGallery .photoCard{padding:7px;min-width:0}.bundleGallery .photoCard img{height:150px}.bundleGallery .field{padding:3px 0}.bundleGallery .field label{font-size:12px}.bundleGallery select{font-size:13px;padding:7px;min-height:36px}.bundleGallery button{min-height:34px;padding:5px;font-size:12px}.bundleHeader small{overflow-wrap:anywhere}select{max-width:100%}.multiChoice{overflow-wrap:anywhere}@media(max-width:600px){.bundleGallery{position:static;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.bundleGallery .photoCard img{height:105px}.bundleGallery button{font-size:11px}.bundleGallery select{font-size:11px;padding:6px 2px}.questionGroup{padding:16px}.multiField{padding:13px 0}}
+
+.bundleGallery{grid-template-columns:repeat(3,minmax(0,1fr))}.questionGroup .field,.multiField{scroll-margin-top:330px}.coreStatus{font-size:14px;padding:10px;background:#e5eeee;border-radius:8px;margin-top:10px}@media(max-width:600px){.questionGroup .field,.multiField{scroll-margin-top:15px}}
+
+header,main{max-width:1100px}.onlineStatus,.savedSafety{padding:12px;background:#e0f1eb;border:1px solid #b7d6ca;border-radius:9px;margin:12px 0}.offlineTools{background:#fff7dc;border-radius:10px;padding:14px;margin:14px 0}.offlineTools button{margin:4px}.ratingCard{max-width:none}#lockSafety{margin:20px 0;width:100%;font-weight:700}#complete{width:100%;font-weight:700}.toolbar{position:relative}.bundleGallery{position:static}.bundleGallery .photoCard img{height:190px}.questionGroup .field,.multiField{scroll-margin-top:20px}@media(max-width:600px){header,main{padding:12px}.photoGrid{grid-template-columns:1fr}.bundleGallery{grid-template-columns:1fr}.bundleGallery .photoCard img{height:200px}.bundleGallery button{font-size:15px;min-height:44px}.bundleGallery select{font-size:16px;min-height:44px}.multiChoice{padding:10px 0}h1{font-size:25px}.toolbar>*{flex:1 1 40%}select{font-size:16px}.topline{flex-wrap:wrap}}
+</style></head>
+<body><header><div class="topline"><a href="index.html">← Review home</a><span>MOBILE VERSION 1 · SAME V5 SAMPLE</span></div><h1 id="title"></h1>
+<div class="toolbar"><button id="export" class="primary">Save JSON</button><label class="filebutton">Resume JSON<input id="resume" type="file" aria-label="Resume from JSON" accept=".json,application/json"></label><button id="sendAnswers">Send saved answers</button><button id="unfinished">Next unfinished</button></div>
+<div id="status" role="status" aria-live="polite"></div><div id="message" role="alert" hidden></div></header>
+<main><details id="identityDetails" open><summary id="identitySummary">Reviewer and session</summary><section class="identity"><label>Your reviewer code<input id="person" maxlength="80" placeholder="For example: reviewer-07" autocomplete="off"></label><label>Session code or date<input id="session" placeholder="For example: 2026-10-21-morning" autocomplete="off"></label></section></details>
+<details class="guidance"><summary>Instructions and answer meanings</summary><p id="taskHelp"></p><p><b>Cannot assess</b> means the photograph does not show enough evidence. <b>Not applicable</b> means the question does not apply. Neither means unsafe.</p><p>Do not consult comments, old ratings or other reviewers. Record if you recognize a place. Download a backup after every session, even if browser saving works.</p><p>Work independently. Each location has safety first, then features. Complete locations 1–22, save/send and check timing before continuing. Core ends at 84; 85–148 are optional. If definitions change, the coordinator will issue a separately versioned packet.</p></details>
+<nav class="bundleNav" aria-label="Location navigation"><button id="prev">← Previous location</button><label class="jumpLabel">Location<select id="jump"></select></label><button id="next">Next location →</button></nav>
+<details class="offlineTools"><summary>Offline tools · prepare on Wi-Fi</summary><p>Keep this browser and website address. Save a JSON backup at every break. A cached page alone does not include all photos.</p><button id="cacheNext">Save current + next 9 locations offline</button><button id="cacheCore">Save all core photos offline</button><button id="offlineCheck">Check next 10 photo cache</button><p id="offlineStatus" role="status">Offline preparation requires the hosted website.</p></details><div id="content"></div></main>
+<dialog id="zoom"><button id="closeZoom">Close full-size photo</button><img id="zoomImage" alt="Full-size review photograph"></dialog>
+<script src="config.js"></script><script id="packet-data" type="application/json">{"study": "photo_mobile_v1_20261030", "schema_version": 6, "quality": [], "features": [], "items": [{"name": "streetlight_density", "title": "Are there streetlights present on this street?", "choices": [["0", "None"], ["1", "A few (widely spaced / some missing)"], ["2", "Many (regular spacing on one side)"], ["3", "Dense (both sides / closely spaced)"]], "hint": "Judge the photographed stretch only. Spacing requires enough street length in view. A cropped lamp/pole area means cannot assess. Presence does not mean lights work.", "group": "Lighting", "multi": false}, {"name": "lighting_types", "title": "24. What type of lighting is present?", "choices": [["none", "None"], ["streetlights", "Tall streetlights"], ["wall", "Wall-mounted lights (shops/houses)"], ["flood", "Floodlights/security lights"], ["other", "Other"]], "hint": "Select all visible fixture types. Fixtures can be identified by day; this does not establish illumination. None/cannot assess cannot be combined with other choices.", "group": "Lighting", "multi": true}, {"name": "safetipin_lighting", "title": "25. Is there enough light available around you to see clearly?", "choices": [["0", "None - No streetlight or other light source"], ["1", "Little - Can see lights but the area is dimly lit"], ["2", "Enough - Light is enough for clear vision"], ["3", "Bright - Whole area is brightly lit"], ["not_applicable", "Not applicable: daylight/twilight photograph"]], "hint": "Night photographs only. Daylight brightness and visible fixtures cannot establish artificial lighting at night. Judge recorded visibility, not measured light output.", "group": "Lighting", "multi": false}, {"name": "safetipin_openness", "title": "Are you able to see and move in all directions?", "choices": [["0", "Not Open - Many blind corners and no clear sightline"], ["1", "Partly Open - Able to see a little ahead and around"], ["2", "Mostly Open - Able to see in most directions"], ["3", "Completely Open - Can see clearly in all directions"]], "hint": "Use all three directions. Judge visible sightlines and physical access; do not invent what lies outside the views.", "group": "Visibility, people and walking", "multi": false}, {"name": "safetipin_visibility", "title": "Around you, are there vendors, shops, buildings from where you can be seen?", "choices": [["0", "No Eyes - No window/building entrance/vendor overlooking this point"], ["1", "Few Eyes - Less than 5 windows or entrances overlooking the point"], ["2", "More Eyes - Less than 10 windows or entrances overlooking this point"], ["3", "Highly Visible - More than 10 windows or entrances overlooking this point"]], "hint": "Count distinct visible potential eyes once across overlapping views, not actual surveillance. For exhaustive coding: 0; 1–4; 5–10; >10. Exactly 10 uses More Eyes despite the original label’s boundary gap.", "group": "Visibility, people and walking", "multi": false}, {"name": "safetipin_people", "title": "How many people are there walking around you?", "choices": [["0", "Deserted - No one in sight"], ["1", "Few People - 1 or 2 people visible"], ["2", "Some Crowd - 3-10 people visible"], ["3", "Crowded - More than 10 people visible / many people within touching distance"]], "hint": "Count each visible person once across overlapping photos. A still image cannot establish usual footfall or movement. If views conflict, choose cannot assess.", "group": "Visibility, people and walking", "multi": false}, {"name": "safetipin_security", "title": "Are there police or private security guards around?", "choices": [["0", "None - No guards or police visible in surrounding area"], ["1", "Minimal - Some private security visible in surrounding area but not nearby"], ["2", "Moderate - Private security within hailing distance"], ["3", "High - Police / reliable security within hailing distance"]], "hint": "Require visibly identifiable personnel. Nearby means apparently within hailing distance. Reliability cannot be established from appearance; the original label is retained as a category name.", "group": "Visibility, people and walking", "multi": false}, {"name": "safetipin_walk_path", "title": "Is there a safe place to walk?", "choices": [["0", "None - No walking path available"], ["1", "Poor - Path exists but in very bad condition"], ["2", "Fair - Can walk but not run"], ["3", "Good - Easy to walk fast or run"]], "hint": "Use visible width, surface and obstructions as a physical walking-path proxy. Do not infer crime safety or test walking/running from a photo.", "group": "Visibility, people and walking", "multi": false}, {"name": "apparent_derelict_buildings", "title": "Are there any abandoned/derelict or 'bad'/'hijacked' buildings visible at this location?", "choices": [["0", "None"], ["1", "One"], ["2", "More than one"], ["cannot_assess", "I am not sure"]], "hint": "Record visible dereliction only, such as major damage or boarded/broken openings. Photographs cannot establish abandonment, ownership, illegal occupation or a “hijacked” status. If the answer depends on these, choose I am not sure. This is a visual proxy, not verified building status.", "group": "Environment and land use", "multi": false}, {"name": "environment_condition", "title": "What is the condition of the environment at this location (e.g. rubbish, smells, sewage or drainage issues)?", "choices": [["3", "Good (clean, no visible rubbish, no bad smells or waste issues)"], ["2", "Adequate (minor rubbish or occasional smells)"], ["1", "Poor (visible rubbish, unpleasant smells, or drainage issues)"], ["0", "Very poor (heavy rubbish, strong smells, or visible sewage/wastewater)"]], "hint": "Photo adaptation: judge visible rubbish, wastewater and drainage cues ONLY. Smells cannot be assessed and are not inferred from this category. Unclear surface liquid is not automatically sewage.", "group": "Environment and land use", "multi": false}, {"name": "physical_maintenance", "title": "What is the condition of the physical environment (e.g. pavements, grass, public space)?", "choices": [["3", "Well maintained"], ["2", "Adequate"], ["1", "Poor"], ["0", "Very poor (broken infrastructure, overgrown or damaged)"]], "hint": "Visible public-space maintenance only. Do not infer neighbourhood income or reputation.", "group": "Environment and land use", "multi": false}, {"name": "perceived_crime_signs", "title": "Do you see any signs of crime or recent criminal activity at this location?", "choices": [["0", "None"], ["1", "Minor signs (e.g. broken glass, graffiti)"], ["2", "Some signs (e.g. vandalism, suspicious activity)"], ["3", "Clear signs (e.g. active dealing, theft, intimidation)"]], "hint": "Use directly visible evidence only. Do not infer criminality or suspiciousness from a person’s appearance, gathering, clothing or neighbourhood. A single photograph usually cannot establish dealing, theft or intimidation. Use cannot assess when the act/context is not established; these are photo perceptions, not verified crime events.", "group": "Environment and land use", "multi": false}, {"name": "area_types", "title": "What is the type of area at this location? (You can select more than one)", "choices": [["formal_residential", "Formal residential (houses, apartments)"], ["informal_residential", "Informal residential (informal settlement, non-permanent structures)"], ["informal_commercial", "Informal commercial (street vendors, markets, taxi ranks)"], ["formal_commercial", "Formal commercial (shops, offices, malls)"], ["industrial", "Industrial / warehouse area"], ["transport", "Transport hub (e.g. taxi rank, station)"], ["public_space", "Public space (park, open area)"], ["other", "Other"]], "hint": "Classify the visible physical setting/use only. Formal/informal labels describe apparent structures/activity, not legal status, tenure or income. Hidden or ambiguous use: cannot assess.", "group": "Environment and land use", "multi": true}, {"name": "main_area", "title": "What is the main type of area at this location? (Select the dominant use)", "choices": [["formal_residential", "Formal residential (houses, apartments)"], ["informal_residential", "Informal residential (informal settlement, non-permanent structures)"], ["informal_commercial", "Informal commercial (street vendors, markets, taxi ranks)"], ["formal_commercial", "Formal commercial (shops, offices, malls)"], ["industrial", "Industrial / warehouse area"], ["transport", "Transport hub (e.g. taxi rank, station)"], ["public_space", "Public space (park, open area)"], ["other", "Other"]], "hint": "Classify the visible physical setting/use only. Formal/informal labels describe apparent structures/activity, not legal status, tenure or income. Hidden or ambiguous use: cannot assess. The dominant type must be among the types selected above; if dominance is unclear, choose cannot assess.", "group": "Environment and land use", "multi": false}, {"name": "rough_sleeping_cues", "title": "Do you see people who appear to be sleeping rough or living on the street?", "choices": [["0", "None"], ["1", "One person"], ["2", "A few people"], ["3", "Many people"]], "hint": "Photo proxy: count only directly visible people with clear outdoor sleeping/bedding/shelter-use cues. Clothing, bags, resting or appearance alone do not establish housing status. If uncertain choose cannot assess. This is not a homelessness count.", "group": "Environment and land use", "multi": false}, {"name": "vegetation_extent", "title": "How much vegetation is visible?", "choices": [["0", "None in assessable scene"], ["1", "A little: isolated plants / small patches"], ["2", "Some: several trees or substantial grass/shrubs"], ["3", "Extensive vegetation"]], "hint": "Trees, grass and bushes. Amount is separate from maintenance and obstruction. Judge the views, not a map.", "group": "Additional visible features", "multi": false}, {"name": "green_space_type", "title": "Is a park or green/open space visible?", "choices": [["none", "None in assessable scene"], ["park", "Recognisable park / maintained recreation green space"], ["planted", "Planted verge, garden or trees, without a recognisable park"], ["open_vegetated", "Vegetated open land / field"], ["bare_open", "Predominantly bare open plot / land"], ["other", "Other visible green/open space"]], "hint": "Select all visible types. Park/recreation use needs visible layout, equipment or signs; vegetation alone is not proof of a park. Distinguish a recognisable park from vegetation or open land.", "group": "Additional visible features", "multi": true}, {"name": "waste_extent", "title": "How much litter or dumped waste is visible?", "choices": [["none", "None in assessable ground"], ["scattered", "Scattered individual items"], ["piles", "A pile or several patches"], ["widespread", "Widespread waste / large dumping"]], "hint": "A normal bin or building materials in use are not dumped waste. Record this specific feature separately from the combined environment condition.", "group": "Additional visible features", "multi": false}, {"name": "path_obstruction", "title": "Is the walking path physically obstructed?", "choices": [["clear", "Clear"], ["narrowed", "Narrowed but passable"], ["blocked", "Blocked: a pedestrian would need to leave the path"], ["not_applicable", "Not applicable: no separate path visible"]], "hint": "Vehicles, objects, vegetation or severe breaks. If the path is hidden rather than absent, use cannot assess.", "group": "Additional visible features", "multi": false}, {"name": "road_surface", "title": "What is the road surface material?", "choices": [["paved", "Paved"], ["unpaved", "Dirt or gravel"], ["mixed", "Mixed"], ["not_applicable", "Not applicable: no road shown"]], "hint": "Material does not establish maintenance or safety.", "group": "Additional visible features", "multi": false}, {"name": "road_damage", "title": "How much road damage is visible?", "choices": [["none", "None in assessable road surface"], ["localized", "Localised potholes / broken surface"], ["extensive", "Extensive damage"], ["not_applicable", "Not applicable: no road shown"]], "hint": "Do not count gravel alone, shadows or water hiding a surface. If hidden by water, choose cannot assess.", "group": "Additional visible features", "multi": false}, {"name": "security_hardware", "title": "What boundary/security hardware is visible?", "choices": [["none", "None in assessable frontage"], ["wall", "High/solid boundary wall"], ["fence", "Fence / gates"], ["bars", "Window/door bars"], ["wire", "Barbed / razor / electric fencing"], ["camera", "Camera or security-system sign"]], "hint": "Select all visible types; a sign is not proof of a working system. Do not judge effectiveness or crime levels.", "group": "Additional visible features", "multi": true}, {"name": "building_materials", "title": "What building construction materials are visible?", "choices": [["masonry", "Predominantly masonry / concrete"], ["lightweight", "Predominantly lightweight sheet / wood"], ["mixed", "Mixed materials"], ["not_applicable", "Not applicable: no buildings shown"]], "hint": "Physical materials only. This does not establish legality, tenure, income or occupancy.", "group": "Additional visible features", "multi": false}, {"name": "vegetation_obstruction", "title": "Does vegetation obstruct the public route or sightline?", "choices": [["no", "No visible obstruction"], ["yes", "Visible obstruction"], ["not_applicable", "Not applicable: no vegetation shown"]], "hint": "Require a physical obstruction. Vegetation amount alone does not imply obstruction.", "group": "Additional visible features", "multi": false}], "safety_question": "How safe do you feel in this area?", "safety_choices": [["0", "Frightening - Will never venture here without sufficient escort"], ["1", "Uncomfortable - Will avoid this place whenever possible"], ["2", "Acceptable - Feel safe enough but will be careful"], ["3", "Comfortable - Feel safe under the conditions shown"], ["cannot_assess", "I am not sure / cannot assess from these photographs"]], "original_choices": [], "safety_target_version": "safety_first_locked_mobile_v1", "requested_question_count": 16, "additional_feature_count": 9, "core_end_display": 84, "packet_id": "5a2ab70e0b30101b12ac18b34db127f93d8d706848a7ee8df24935b6d19d60b8", "task": "components", "rater": "A", "bundles": [{"bundle_id": "B7e9cc8e19081e7f6", "phase": "practice", "wave": "practice", "images": [{"image_id": "Pebfcb79e43a32495", "src": "images/P12ae2a5fca3e632f.jpg"}, {"image_id": "Pbcb9a5ec379bf893", "src": "images/P38c8a23e94ac9094.jpg"}, {"image_id": "P6f14e15560d61801", "src": "images/Pf6c57c4e77e76339.jpg"}]}, {"bundle_id": "Bbfe5b413a8592fca", "phase": "practice", "wave": "practice", "images": [{"image_id": "P9a5d47427954c2af", "src": "images/Peaeac14f77591cd6.jpg"}, {"image_id": "Pea03951724343717", "src": "images/Pfe3085386c54c94e.jpg"}, {"image_id": "P836a9e2b8a9b1b49", "src": "images/Paa11a570b7b23509.jpg"}]}, {"bundle_id": "Bb51e04868a86e502", "phase": "practice", "wave": "practice", "images": [{"image_id": "P04cf813d024eb7ef", "src": "images/Pc80d6bff5c15bbfe.jpg"}, {"image_id": "Pd58ffab3ba699709", "src": "images/P787a02ee6facda88.jpg"}, {"image_id": "P11f78f9050b01058", "src": "images/Pbefd43d2f1b606d6.jpg"}]}, {"bundle_id": "Bd73884fd4520201c", "phase": "practice", "wave": "practice", "images": [{"image_id": "P20266b3a94cac576", "src": "images/Pda2dcb984dc3dcc5.jpg"}, {"image_id": "P3e36efd0cc16c226", "src": "images/Pbbe4924a3d258af0.jpg"}, {"image_id": "P03c4ba76b7498be5", "src": "images/P84e4a24a66c93600.jpg"}]}, {"bundle_id": "B7bd93a68b0c2e7ae", "phase": "main", "wave": "first_wave", "images": [{"image_id": "P7c7280e2ab1b3bba", "src": "images/Pad3e236fb90bdfd8.jpg"}, {"image_id": "Pbc7a75c0de4b726b", "src": "images/Pa7d6a61743049b53.jpg"}, {"image_id": "P5d3b1fc5149c4581", "src": "images/P3cff0af1682ba869.jpg"}]}, {"bundle_id": "B666a27cd590e70bf", "phase": "main", "wave": "first_wave", "images": [{"image_id": "P6a83a512f643db96", "src": "images/Pbc7d19ab06427a24.jpg"}, {"image_id": "Paef19b9cac31327a", "src": "images/P4b205a7427f89ffa.jpg"}, {"image_id": "Pc59830b14038e428", "src": "images/Pfa13d56ee588c41c.jpg"}]}, {"bundle_id": "Bc50608742874615f", "phase": "main", "wave": "first_wave", "images": [{"image_id": "P921d8ac484fb6eff", "src": "images/Pf4f273bda8874e22.jpg"}, {"image_id": "Pc2933bc32005857e", "src": "images/P19a2759b3d986a47.jpg"}, {"image_id": "P618701384ec33928", "src": "images/P288aa3f5a3029aee.jpg"}]}, {"bundle_id": "B4f16100977b7b356", "phase": "main", "wave": "first_wave", "images": [{"image_id": "Pbf338a68421c00f3", "src": "images/P47544f543bac5feb.jpg"}, {"image_id": "Pa24ca622c29258a7", "src": "images/P9eee19c83a4a977c.jpg"}, {"image_id": "P239ccee8d3f13071", "src": "images/Pc1f5491b3150ccac.jpg"}]}, {"bundle_id": "B400479b36c68980d", "phase": "main", "wave": "first_wave", "images": [{"image_id": "P0ed468aaa6af57ed", "src": "images/Pb88052953d5d1b2b.jpg"}, {"image_id": "Pcbab5ee011d0cfb2", "src": "images/Pedafcc8cb473b065.jpg"}, {"image_id": "P6aa1c990ad21d40a", "src": "images/Pf8b31e0cd95eceaf.jpg"}]}, {"bundle_id": "B955f61255ff3b50b", "phase": "main", "wave": "first_wave", "images": [{"image_id": "P8599a1e33d4dcddf", "src": "images/Pdb09654704847ca5.jpg"}, {"image_id": "P5622435ebcf8be85", "src": "images/P285647598105c3cc.jpg"}, {"image_id": "P1e4b82ce8b0b6023", "src": "images/P90a627a9354c72ed.jpg"}]}, {"bundle_id": "B2dea645ba651c7ab", "phase": "main", "wave": "first_wave", "images": [{"image_id": "P13dfd4116f74a93d", "src": "images/P11f8ba3d15b95c8f.jpg"}, {"image_id": "P9b672e8e0f075bf3", "src": "images/P9d80c354886e630c.jpg"}, {"image_id": "P21b0c6621b82c3cc", "src": "images/P0d9df1505eeb8db7.jpg"}]}, {"bundle_id": "Be19786d87fd7a590", "phase": "main", "wave": "first_wave", "images": [{"image_id": "P06c85bc24e02042e", "src": "images/P3af3e5d52c969366.jpg"}, {"image_id": "P54901d5d6ab5e390", "src": "images/Pebfad7bd759a3e95.jpg"}, {"image_id": "Pfd873855de4ff20c", "src": "images/Pafdf8ec91be5527c.jpg"}]}, {"bundle_id": "Bd576cc958aeb7802", "phase": "main", "wave": "first_wave", "images": [{"image_id": "Pceb06c32bdbdba1a", "src": "images/P8d15fda6c4e334cd.jpg"}, {"image_id": "P20f5f907ea0c4b82", "src": "images/Pefa6cac39e47df36.jpg"}, {"image_id": "P61764e9bb14fcf48", "src": "images/P70213a050a6e55b0.jpg"}]}, {"bundle_id": "B5224e465501c48d5", "phase": "main", "wave": "first_wave", "images": [{"image_id": "Pf2dba0d9e5324374", "src": "images/Pf9fd2b7a643218e9.jpg"}, {"image_id": "P8bdfec8ebbde6f45", "src": "images/P6e83797ccd0eca61.jpg"}, {"image_id": "P63bb728b4773ffc5", "src": "images/Pabc212b8f1860be1.jpg"}]}, {"bundle_id": "Bca08f13466ac701b", "phase": "main", "wave": "first_wave", "images": [{"image_id": "P229ce7c77719fef0", "src": "images/P3dcd71eb6e157503.jpg"}, {"image_id": "Pec18118ac4e0fd1b", "src": "images/P9bbd50e18aac3031.jpg"}, {"image_id": "P5eede933ba3ce41a", "src": "images/P131ee7f58056a72f.jpg"}]}, {"bundle_id": "B53924336e662f9b3", "phase": "main", "wave": "first_wave", "images": [{"image_id": "P1446959e8d64dae8", "src": "images/P4d8be507ef95bcce.jpg"}, {"image_id": "P67b18a8e7475e19d", "src": "images/P6ef8064c38854f1d.jpg"}, {"image_id": "P58bf4d0e1049610c", "src": "images/Pf2c847d7c59b708b.jpg"}]}, {"bundle_id": "B53e44b42a4f1352b", "phase": "main", "wave": "first_wave", "images": [{"image_id": "P2cc6e57aff3b85ad", "src": "images/P4639a7e3fc309ebb.jpg"}, {"image_id": "P9650fba1931121a7", "src": "images/P66a0279045389c2c.jpg"}, {"image_id": "P5868b2a9d38be0c7", "src": "images/P94a229c9cfb28add.jpg"}]}, {"bundle_id": "Bfbb87beae757c6e4", "phase": "main", "wave": "first_wave", "images": [{"image_id": "P1bc50f60ace534be", "src": "images/Pc49a8c4163adf560.jpg"}, {"image_id": "Pb2ed34411ccaf166", "src": "images/Pa98ccfb5cd2f9a34.jpg"}, {"image_id": "Pf15523bd42fad58f", "src": "images/P613ae9d8186827c8.jpg"}]}, {"bundle_id": "Bec9dc163f3289c28", "phase": "main", "wave": "first_wave", "images": [{"image_id": "Pcf748b34c17d35c5", "src": "images/P56f836da8b8f73d6.jpg"}, {"image_id": "Pe9b052b11edb52c6", "src": "images/P7791b885a6a6f91d.jpg"}, {"image_id": "Pa16b4d96fb555a3f", "src": "images/P18bfa3f7ca5e0ee9.jpg"}]}, {"bundle_id": "B8c4f3eb3143c1489", "phase": "main", "wave": "first_wave", "images": [{"image_id": "Pd2e886482f226c7f", "src": "images/P699bb8fbe442c210.jpg"}, {"image_id": "P52c44f767a712342", "src": "images/Pbc3d0a665b9119ce.jpg"}, {"image_id": "P7d60ffa3592af8f3", "src": "images/Pf5ae0e8166048404.jpg"}]}, {"bundle_id": "Be25f6c879d48bc18", "phase": "main", "wave": "first_wave", "images": [{"image_id": "P1f583a5a2fd66dd1", "src": "images/P49e5bc632071c7ac.jpg"}, {"image_id": "P32265fc580ec7486", "src": "images/Pb57629cc85495441.jpg"}, {"image_id": "P02b979946036c8af", "src": "images/P9341357088c7ca71.jpg"}]}, {"bundle_id": "Bbe00fc1b283be42d", "phase": "main", "wave": "first_wave", "images": [{"image_id": "Pe34a84232d9298a7", "src": "images/P5af6cb1fddda5988.jpg"}, {"image_id": "Pf2aa7e7c39cb5361", "src": "images/Pe3ca68e8be9e3d22.jpg"}, {"image_id": "P0b016159bc9f5972", "src": "images/P7172bdda068483c8.jpg"}]}, {"bundle_id": "Bde9c1c3e19845992", "phase": "main", "wave": "night_core", "images": [{"image_id": "Pa55c5dc4024a11b1", "src": "images/Pf9303125c7512632.jpg"}, {"image_id": "Pb797177b756768ac", "src": "images/Pe0e7697f05b9dcdd.jpg"}, {"image_id": "P25c4af1d5644e869", "src": "images/P98cae35e6c5b42eb.jpg"}]}, {"bundle_id": "B13d26ee36b5b36af", "phase": "main", "wave": "night_core", "images": [{"image_id": "P691bbc1452941398", "src": "images/P1fb35deba6eba1d7.jpg"}, {"image_id": "P6d43ca09f37bf544", "src": "images/Pb27de2d237947009.jpg"}, {"image_id": "P0db61e01e4705352", "src": "images/Pa082bdbd8678f1ca.jpg"}]}, {"bundle_id": "B27f330135f06ec05", "phase": "main", "wave": "night_core", "images": [{"image_id": "Pd816d993d94fbff8", "src": "images/Pad8e3e3cee7a865a.jpg"}, {"image_id": "Pcc2a5d372c2242a1", "src": "images/P42a9e60be3e3efc5.jpg"}, {"image_id": "P1c17ea1d07968c10", "src": "images/P17d87c6fc44f34dd.jpg"}]}, {"bundle_id": "B2da0b803a97e5cd7", "phase": "main", "wave": "night_core", "images": [{"image_id": "P747b4c3e5c4c4180", "src": "images/Pdc1ee32a2b429ab1.jpg"}, {"image_id": "P00a33d23c646ea5b", "src": "images/Pbc1bf4521a9b6535.jpg"}, {"image_id": "Pa58ff5191d8d4d17", "src": "images/P6601be8c269d84a5.jpg"}]}, {"bundle_id": "B1cefbb7bb2f89568", "phase": "main", "wave": "night_core", "images": [{"image_id": "Pb8fd660e74cc3e61", "src": "images/Pbe0d5d92ff2dd557.jpg"}, {"image_id": "P6c7ea2354d5d6e0d", "src": "images/P0a2ca11ead598bbd.jpg"}, {"image_id": "P19f593fefd283b42", "src": "images/Pd366f69768288059.jpg"}]}, {"bundle_id": "Bfaa40d9e6a12f99c", "phase": "main", "wave": "night_core", "images": [{"image_id": "P36cdc24660f52537", "src": "images/Pdcb478891fcea18f.jpg"}, {"image_id": "P4c9065fc15e5b5fb", "src": "images/P47a47f1f4f5550d8.jpg"}, {"image_id": "P88e91ad4c5fef6ff", "src": "images/P6ac6e15f20d86f36.jpg"}]}, {"bundle_id": "Bb2ed914053a8f495", "phase": "main", "wave": "night_core", "images": [{"image_id": "Pd11914de25e842ae", "src": "images/P37d5057903c72b8c.jpg"}, {"image_id": "P7d3bca40ec2c11a4", "src": "images/Pbae616b072dd7299.jpg"}, {"image_id": "Pc29d72a4e059f3e5", "src": "images/P1bba3a5da08cad4b.jpg"}]}, {"bundle_id": "B96c186753f4b11a9", "phase": "main", "wave": "night_core", "images": [{"image_id": "P3891736d669819f3", "src": "images/P23ab717e3544d9f3.jpg"}, {"image_id": "P420b71b64412be68", "src": "images/P1472b9cdda8ca057.jpg"}, {"image_id": "Pf63b813b80f0cf87", "src": "images/P1422ec5390e2114b.jpg"}]}, {"bundle_id": "B0e64c9e90a5d7bf7", "phase": "main", "wave": "night_core", "images": [{"image_id": "P18eac7c89705065d", "src": "images/Pd96d1c07cc2d05ce.jpg"}, {"image_id": "P8a89cc2452761090", "src": "images/Pc8745067545f6f84.jpg"}, {"image_id": "Pabef6cae424f5fd0", "src": "images/P64eb2fef9df17151.jpg"}]}, {"bundle_id": "Bb0c79d818cf8eb7f", "phase": "main", "wave": "night_core", "images": [{"image_id": "Pa618a2e829e32c22", "src": "images/Pbb07bf82c7367033.jpg"}, {"image_id": "P35d4194137df353c", "src": "images/Pf586690ff932de1c.jpg"}, {"image_id": "P7b5162c80094d4dd", "src": "images/P38c09c42a82f81aa.jpg"}]}, {"bundle_id": "B4117d56ad1c5474e", "phase": "main", "wave": "night_core", "images": [{"image_id": "P588222e946364c97", "src": "images/P110afa296c57fe7a.jpg"}, {"image_id": "P61e115219ffc737c", "src": "images/Pc4799c537eb5243d.jpg"}, {"image_id": "P96ce70de6a245a54", "src": "images/Pe52cef7b10466eb0.jpg"}]}, {"bundle_id": "B68431109a0dd9ab1", "phase": "main", "wave": "night_core", "images": [{"image_id": "Pfc1795d8d5e15431", "src": "images/P38e12789b5a7107f.jpg"}, {"image_id": "P4bcebf32db352f94", "src": "images/P64d56801abc634b9.jpg"}, {"image_id": "P02ffe6c20bbeb756", "src": "images/P90ec943e709f7574.jpg"}]}, {"bundle_id": "Bd5cb05225352396f", "phase": "main", "wave": "day_core", "images": [{"image_id": "P8f489cefa699aac9", "src": "images/Pf2fea08c39b4e3f6.jpg"}, {"image_id": "P95d7641c38c2fd93", "src": "images/P4ed580d34e0f9a74.jpg"}, {"image_id": "Pdac6128cfa6ba601", "src": "images/Pce736fb482a1608c.jpg"}]}, {"bundle_id": "B5029f6db2af7df34", "phase": "main", "wave": "day_core", "images": [{"image_id": "P71c4e0d28c579719", "src": "images/P7c0866b0b38c1a9b.jpg"}, {"image_id": "P0494b808cc3e20bd", "src": "images/Pda624c314fe3651e.jpg"}, {"image_id": "P8cd39b4c9dec7e15", "src": "images/Pcdb61b327626fcc0.jpg"}]}, {"bundle_id": "Ba2967bcf10a86dd5", "phase": "main", "wave": "day_core", "images": [{"image_id": "Pf1e06a81258e1d3d", "src": "images/Padd992d870fb46a5.jpg"}, {"image_id": "P6dc809db54e50d73", "src": "images/P43b1683eaa42f48e.jpg"}, {"image_id": "P18c2aec333acb0ca", "src": "images/Pf8b762e6cd8dac90.jpg"}]}, {"bundle_id": "B97b930bf3cf93d6b", "phase": "main", "wave": "day_core", "images": [{"image_id": "P2909c749c4847292", "src": "images/Pdd3a7666d6ea2451.jpg"}, {"image_id": "P93bbae1e5573830e", "src": "images/P3f3c1c854a69b60e.jpg"}, {"image_id": "Pedb336c63174c847", "src": "images/P2c597e5d8f252eca.jpg"}]}, {"bundle_id": "B040b2bfe41f085e4", "phase": "main", "wave": "day_core", "images": [{"image_id": "P4165c6fd937cdff8", "src": "images/Pbe413dd479c3d45f.jpg"}, {"image_id": "P4a7a847b25a66b8a", "src": "images/P5766df7d3ebac858.jpg"}, {"image_id": "P0d04d00bfd8b803c", "src": "images/P4ca85e748ebd5703.jpg"}]}, {"bundle_id": "Bbbbd017287cab72c", "phase": "main", "wave": "day_core", "images": [{"image_id": "Pc0f0509615d3936d", "src": "images/Pe019c1ec6cc7da81.jpg"}, {"image_id": "Pb6494fddf6cea08b", "src": "images/P64c4ecd1cca9af3e.jpg"}, {"image_id": "P5cfa414fe7120a18", "src": "images/Pdd51ec6316e45205.jpg"}]}, {"bundle_id": "Bbb2337f15c61dd45", "phase": "main", "wave": "day_core", "images": [{"image_id": "P6ce141b9a64e3831", "src": "images/Pa2c5ead4da628e59.jpg"}, {"image_id": "P3902b36ccc9f837f", "src": "images/P9687fcdca5572379.jpg"}, {"image_id": "P4fb1a49cf15366fe", "src": "images/Pa6bd5c3618753e64.jpg"}]}, {"bundle_id": "B75fa5e2afd5186d5", "phase": "main", "wave": "day_core", "images": [{"image_id": "P2864d6ce9c3d07dd", "src": "images/P11b5cf5a7436875c.jpg"}, {"image_id": "P076d339c1b5f31c7", "src": "images/P7e9ee433fcabecef.jpg"}, {"image_id": "Pde672782e20cb60f", "src": "images/Pe290640638a5c105.jpg"}]}, {"bundle_id": "B911d43f63fca32da", "phase": "main", "wave": "day_core", "images": [{"image_id": "P6add63b5b4f3dda9", "src": "images/Pe05dd7a7c816c91d.jpg"}, {"image_id": "Pf1a42d958b6e1c0b", "src": "images/Pda535b6879b5dd0b.jpg"}, {"image_id": "Pb79f0ed4369158fa", "src": "images/P8eb99aaef3db973a.jpg"}]}, {"bundle_id": "Ba365137403dd7533", "phase": "main", "wave": "day_core", "images": [{"image_id": "P9c97b17d83f55203", "src": "images/P72346631f53ea2ee.jpg"}, {"image_id": "Pbdeeb899df612631", "src": "images/P3f25e7eecd979848.jpg"}, {"image_id": "P0d5c6b0b49dbf165", "src": "images/P3264ff12e789b504.jpg"}]}, {"bundle_id": "B539c54fe9462c1e4", "phase": "main", "wave": "day_core", "images": [{"image_id": "P697bec1019f947a2", "src": "images/P96f466efd9c0338d.jpg"}, {"image_id": "P96fa93e12f5c9ca4", "src": "images/Pe5502ddb58384b8f.jpg"}, {"image_id": "Pc05072e5e2f1978a", "src": "images/P103f8634a7615f2f.jpg"}]}, {"bundle_id": "B568a2ce149686d26", "phase": "main", "wave": "day_core", "images": [{"image_id": "P0a60967af84bd094", "src": "images/P7004fcc2fbb39157.jpg"}, {"image_id": "P7637f2b6eda16621", "src": "images/P9e3ecc1e57850eb7.jpg"}, {"image_id": "P35d3ab60fac3e0af", "src": "images/P3f59bf33d9513a79.jpg"}]}, {"bundle_id": "B72e44ff26f1cc7da", "phase": "main", "wave": "day_core", "images": [{"image_id": "Pece38d21267d5e4b", "src": "images/P3e2b9ff69f6bb421.jpg"}, {"image_id": "Pde2028bcdb4aeafc", "src": "images/P054132a9675b9661.jpg"}, {"image_id": "Pccdd5b1079cfea49", "src": "images/P1cbb3127fc170174.jpg"}]}, {"bundle_id": "B1531673e3badd7d3", "phase": "main", "wave": "day_core", "images": [{"image_id": "P844078723f5010c3", "src": "images/Pced705f4215e8937.jpg"}, {"image_id": "Pa559763ff795416c", "src": "images/Pf4aad93677c4a3bd.jpg"}, {"image_id": "Pdcfb4346927f29b3", "src": "images/Pe0126e9ee5c67a05.jpg"}]}, {"bundle_id": "B0b7b359265867a6e", "phase": "main", "wave": "day_core", "images": [{"image_id": "Pb98fb4632d002a5b", "src": "images/Pd604f4196cfd3da2.jpg"}, {"image_id": "P72a54ea6c4df5fa0", "src": "images/Pd7abe676e92ddb42.jpg"}, {"image_id": "Pdcd7b8af7fccc3fe", "src": "images/P61ff6b6474e58ae7.jpg"}]}, {"bundle_id": "Bbb6ea6f88622af75", "phase": "main", "wave": "day_core", "images": [{"image_id": "P9cdc10248b05bf9d", "src": "images/P15b13df2018e5c54.jpg"}, {"image_id": "P687dd6da8dd209d9", "src": "images/P215d88173f3301bf.jpg"}, {"image_id": "Pec7f6ba09d10a511", "src": "images/P204c26803dbe8afe.jpg"}]}, {"bundle_id": "B04bfec657f9c86bb", "phase": "main", "wave": "day_core", "images": [{"image_id": "P4227eead90d101fc", "src": "images/P716c388b6d048298.jpg"}, {"image_id": "P6febd06e22352e41", "src": "images/Pd109b406bdb3946f.jpg"}, {"image_id": "P143e30e93e3cfa19", "src": "images/Pcd636e518f7186b5.jpg"}]}, {"bundle_id": "B1f653403bdc7419f", "phase": "main", "wave": "day_core", "images": [{"image_id": "Pc9777eab78fb36ed", "src": "images/P1b24c2be1ff7a844.jpg"}, {"image_id": "Pbe421fcb4b85e54e", "src": "images/Pbc6128f96168b388.jpg"}, {"image_id": "P2669a6b79a84cdfb", "src": "images/P49fcf7574318ea1b.jpg"}]}, {"bundle_id": "Ba855734f510b8d0c", "phase": "main", "wave": "day_core", "images": [{"image_id": "Pb0f1d763b8bb29e8", "src": "images/Pa411dae5438da7fa.jpg"}, {"image_id": "Pe433b021f02bd8d3", "src": "images/Pb4f21b2332966d11.jpg"}, {"image_id": "P2f4b9c582025cc15", "src": "images/P364775b95512cdb7.jpg"}]}, {"bundle_id": "B67f5b2abe70f8389", "phase": "main", "wave": "day_core", "images": [{"image_id": "P4a056fb0c48576f6", "src": "images/P522e1bd0608c2348.jpg"}, {"image_id": "Pc81f49ceafda7db9", "src": "images/P4099df49c5f931a3.jpg"}, {"image_id": "P2d76b9130e985b40", "src": "images/Pdcf04cf7da9e6415.jpg"}]}, {"bundle_id": "B0f0d45dd46c2a1b3", "phase": "main", "wave": "day_core", "images": [{"image_id": "P4174c3bf66d21fb5", "src": "images/P2ea53e921e369135.jpg"}, {"image_id": "P8640690e3851f285", "src": "images/Pfdd629ae6d85f7c2.jpg"}, {"image_id": "Pd52d011eaa22486c", "src": "images/Paa7a9543bf6d18b9.jpg"}]}, {"bundle_id": "B9f32e6963a17850c", "phase": "main", "wave": "day_core", "images": [{"image_id": "Pfd56a56b49859ef7", "src": "images/P185e71b8e3f08b9a.jpg"}, {"image_id": "Pf5b4a0e80488e796", "src": "images/P627c4409e3e6c5ac.jpg"}, {"image_id": "P28f2447f3f02b2bf", "src": "images/Pdf128766a98f8872.jpg"}]}, {"bundle_id": "B2ff1c75946cd3d4f", "phase": "main", "wave": "day_core", "images": [{"image_id": "Pc3d08c446b38caa0", "src": "images/P4863f1a00d23a866.jpg"}, {"image_id": "P45f497503978db3f", "src": "images/P720e2f8b912a583c.jpg"}, {"image_id": "P0dbf8f0abae2a298", "src": "images/Pab48e4cfedf1cb20.jpg"}]}, {"bundle_id": "B07bd7e43c6d0e038", "phase": "main", "wave": "day_core", "images": [{"image_id": "P71f1819f847b64b6", "src": "images/Pac31423e93e62ef5.jpg"}, {"image_id": "Pecd90a8e55509fa2", "src": "images/Pcfbf44fdb25ad3a2.jpg"}, {"image_id": "P0e98b0b7c9d2e04b", "src": "images/P8d4525a006dfb1b3.jpg"}]}, {"bundle_id": "Beb787576443d2522", "phase": "main", "wave": "day_core", "images": [{"image_id": "Pe760e8357f3c566f", "src": "images/P7493a90b561dbe5c.jpg"}, {"image_id": "Peb14f72aa741e1d7", "src": "images/Pacdd9a721647c944.jpg"}, {"image_id": "Pa6654bc841333202", "src": "images/P103d7b9d0ae5780f.jpg"}]}, {"bundle_id": "Bb7ff6c4f676ef1a2", "phase": "main", "wave": "day_core", "images": [{"image_id": "Pd17f2bd32250ce6f", "src": "images/P167120430726b61c.jpg"}, {"image_id": "Pea93fde4bde8f717", "src": "images/Pcce22eb825039ada.jpg"}, {"image_id": "P06fbeea07da45b36", "src": "images/P06984b9cabda4110.jpg"}]}, {"bundle_id": "B70f2ae3a481bbc35", "phase": "main", "wave": "day_core", "images": [{"image_id": "Pb47b6437f7118ece", "src": "images/Pacdb566df032e934.jpg"}, {"image_id": "Pe24418f9261f7bc1", "src": "images/P2ead53df815a4a34.jpg"}, {"image_id": "P65e117848fac675e", "src": "images/P1b261764a767ed00.jpg"}]}, {"bundle_id": "B428fd00bd377b44d", "phase": "main", "wave": "day_core", "images": [{"image_id": "Pd00dbc75d96a03a6", "src": "images/Pf75bfa748cd1cad2.jpg"}, {"image_id": "P00c21d21bbdb0990", "src": "images/P14e376b88031fce0.jpg"}, {"image_id": "P895ebc54e40fba71", "src": "images/Pf1e2602c4b10d702.jpg"}]}, {"bundle_id": "B862b66a9f46ab1ec", "phase": "main", "wave": "day_core", "images": [{"image_id": "P1b0cbf2dc7208178", "src": "images/Pfcfd4e73d3a7f4e4.jpg"}, {"image_id": "P41387d8ee5901fd1", "src": "images/P388e3cdd119cdd1d.jpg"}, {"image_id": "P43b70a8fe6e42030", "src": "images/Pba63c7e7c9262748.jpg"}]}, {"bundle_id": "Bd55b448885ece640", "phase": "main", "wave": "day_core", "images": [{"image_id": "Pf63799170f951bae", "src": "images/P386c6d3e9478e3ee.jpg"}, {"image_id": "P15ba08d6d96896f7", "src": "images/Pab2612ed8e23b32c.jpg"}, {"image_id": "P3db7819339e82038", "src": "images/Ped2b706626a3c2ca.jpg"}]}, {"bundle_id": "Bb348cf901f9c3bbe", "phase": "main", "wave": "day_core", "images": [{"image_id": "P6d71a90bf88e8ee4", "src": "images/Pdd21be9c8e1b51fc.jpg"}, {"image_id": "Pc98b9c6466c69c27", "src": "images/P15cf0e5fc10fadfd.jpg"}, {"image_id": "Pd7ce5f83228a4fdb", "src": "images/P700b5e0b21f52cc9.jpg"}]}, {"bundle_id": "Bb0ebb72af7ff46f4", "phase": "main", "wave": "day_core", "images": [{"image_id": "P825f2e6bb4412d7a", "src": "images/P499a3213cfec60f1.jpg"}, {"image_id": "P7f2c29c73fb9ab74", "src": "images/P3e6828e15b395015.jpg"}, {"image_id": "P088c9267f13ed56e", "src": "images/P6ea195830e99dbf9.jpg"}]}, {"bundle_id": "Bea3fe8c4ffd34819", "phase": "main", "wave": "day_core", "images": [{"image_id": "Pfbdbd717171027d3", "src": "images/Pfc03e3afd465001a.jpg"}, {"image_id": "Pa8dd79bde66aadf2", "src": "images/Pb043486f9f963a14.jpg"}, {"image_id": "Pd2832ae9c5284f1c", "src": "images/Pb4eba43d847d9a1d.jpg"}]}, {"bundle_id": "Bd98b999154fbf3a5", "phase": "main", "wave": "day_core", "images": [{"image_id": "P90d96f9e538d3393", "src": "images/P12d64c4de149d431.jpg"}, {"image_id": "P6aeb18e27fd9cb98", "src": "images/P7b2731a059ebb9fa.jpg"}, {"image_id": "P881c07e959246231", "src": "images/Pdbcab0375aa622c7.jpg"}]}, {"bundle_id": "Bf03a611941b62931", "phase": "main", "wave": "day_core", "images": [{"image_id": "Pa138a5a9bc93dc8d", "src": "images/P7d80faced121f98f.jpg"}, {"image_id": "Pe7a4e86eb9592b05", "src": "images/Pd3e6a208353347fb.jpg"}, {"image_id": "Pa600144334eda84a", "src": "images/P81664db1792639bc.jpg"}]}, {"bundle_id": "Baa0443fb3ced14b1", "phase": "main", "wave": "day_core", "images": [{"image_id": "P50aa9a977eedf866", "src": "images/Pbf24625152052266.jpg"}, {"image_id": "P7486a61d99cbfc6a", "src": "images/Paf4e396025691a22.jpg"}, {"image_id": "P39c51376ea0cc232", "src": "images/Pac914de2352a7e3c.jpg"}]}, {"bundle_id": "Bd5e38ed3b3f2636d", "phase": "main", "wave": "day_core", "images": [{"image_id": "P64f02ebb63b638f6", "src": "images/P054a7d0b8f89abb3.jpg"}, {"image_id": "P0fa1e95f1dfdb54e", "src": "images/P5ebff85b2e5b9284.jpg"}, {"image_id": "Pb622347fada0c4f0", "src": "images/Pfbcdf9bd674f75fd.jpg"}]}, {"bundle_id": "B669fdf78beeca2cf", "phase": "main", "wave": "day_core", "images": [{"image_id": "Pc19ece1c3fdcca64", "src": "images/P6092ea3dfe126e6f.jpg"}, {"image_id": "P92985e9ce336df6b", "src": "images/P6d5123196f2d8585.jpg"}, {"image_id": "Pdc9ce8917c148b37", "src": "images/P3e823b1a5eca5073.jpg"}]}, {"bundle_id": "Bf16f171051ae5cf9", "phase": "main", "wave": "day_core", "images": [{"image_id": "Pe3442a16509c9edd", "src": "images/Pe96ccefb8629c540.jpg"}, {"image_id": "P7979c6c638bddede", "src": "images/P8f8cc977839d31c1.jpg"}, {"image_id": "P166f86072f45a482", "src": "images/P32658642792da388.jpg"}]}, {"bundle_id": "Bdf3817487953ed5d", "phase": "main", "wave": "day_core", "images": [{"image_id": "P8fc6e65529eac1a0", "src": "images/P480480cf83a7996d.jpg"}, {"image_id": "P5d051a7a018ac438", "src": "images/P3d99cf58b93ad51b.jpg"}, {"image_id": "P6ee26d9f8ceb3d85", "src": "images/Pcc6c4e44826f582f.jpg"}]}, {"bundle_id": "B0382773f461cb03c", "phase": "main", "wave": "day_core", "images": [{"image_id": "P0dc36fd224e66801", "src": "images/P372fbce9949975a4.jpg"}, {"image_id": "Pfd8613705594302e", "src": "images/P91ab492c7dcbe978.jpg"}, {"image_id": "P83f645b1a8351985", "src": "images/P24bb3a7208fece88.jpg"}]}, {"bundle_id": "B1d180258dbf4f168", "phase": "main", "wave": "day_core", "images": [{"image_id": "P60fe6025e1538f0d", "src": "images/P7b90cd637b8de99c.jpg"}, {"image_id": "P1c7e5867cdb509be", "src": "images/P06c0c09a189dbb3c.jpg"}, {"image_id": "P9f6da78b2e21f8a8", "src": "images/Pe783c816d9bdda32.jpg"}]}, {"bundle_id": "B0428ed7a78fc11ab", "phase": "main", "wave": "core_checks", "images": [{"image_id": "P4f68de355da0d47e", "src": "images/Pf2fea08c39b4e3f6.jpg"}, {"image_id": "Pa71adfd954df292d", "src": "images/P4ed580d34e0f9a74.jpg"}, {"image_id": "P5910f9abefac21e1", "src": "images/Pce736fb482a1608c.jpg"}]}, {"bundle_id": "B7bb3284d8e922f3e", "phase": "main", "wave": "core_checks", "images": [{"image_id": "P0065210dc7333f30", "src": "images/Pdcb478891fcea18f.jpg"}, {"image_id": "P01e803b1cbaf261e", "src": "images/P47a47f1f4f5550d8.jpg"}, {"image_id": "P0701da4e00a06ec4", "src": "images/P6ac6e15f20d86f36.jpg"}]}, {"bundle_id": "Bafa776cd32cee9fd", "phase": "main", "wave": "core_checks", "images": [{"image_id": "Pce8793192614c4f7", "src": "images/P23ab717e3544d9f3.jpg"}, {"image_id": "Pe11a8a989c5d228c", "src": "images/P1472b9cdda8ca057.jpg"}, {"image_id": "P14b4222304ad46b0", "src": "images/P1422ec5390e2114b.jpg"}]}, {"bundle_id": "Ba17d578b44ab9024", "phase": "main", "wave": "core_checks", "images": [{"image_id": "P57ac5ae74fc11883", "src": "images/Padd992d870fb46a5.jpg"}, {"image_id": "P078be4a994cabea6", "src": "images/P43b1683eaa42f48e.jpg"}, {"image_id": "P91f9f3558d2af72f", "src": "images/Pf8b762e6cd8dac90.jpg"}]}, {"bundle_id": "Bb00dc74e899b5fcb", "phase": "main", "wave": "core_checks", "images": [{"image_id": "Pc2b0ce9f5a608c42", "src": "images/Pdd3a7666d6ea2451.jpg"}, {"image_id": "Pd78a496d843ab9fd", "src": "images/P3f3c1c854a69b60e.jpg"}, {"image_id": "Pb7cd135542000b65", "src": "images/P2c597e5d8f252eca.jpg"}]}, {"bundle_id": "Bdedfb751b1260255", "phase": "main", "wave": "core_checks", "images": [{"image_id": "Pa98b19697221b0d4", "src": "images/P7c0866b0b38c1a9b.jpg"}, {"image_id": "Pdfdda5c687875af0", "src": "images/Pda624c314fe3651e.jpg"}, {"image_id": "P1b849965f6f98624", "src": "images/Pcdb61b327626fcc0.jpg"}]}, {"bundle_id": "B69fc7bd0d2d28808", "phase": "main", "wave": "core_checks", "images": [{"image_id": "P8a11f5e033f77a26", "src": "images/P56f836da8b8f73d6.jpg"}, {"image_id": "P90a16b21cc5dab89", "src": "images/P7791b885a6a6f91d.jpg"}, {"image_id": "Pdc75e2faaaa35f1c", "src": "images/P18bfa3f7ca5e0ee9.jpg"}]}, {"bundle_id": "B0868e0e7d37ef145", "phase": "main", "wave": "core_checks", "images": [{"image_id": "P0973cc3be2d7d288", "src": "images/Pf9fd2b7a643218e9.jpg"}, {"image_id": "P07e0d65a1483b65f", "src": "images/P6e83797ccd0eca61.jpg"}, {"image_id": "P3acd75f27777fde5", "src": "images/Pabc212b8f1860be1.jpg"}]}, {"bundle_id": "Bc6c01f4dc34f46db", "phase": "main", "wave": "stretch", "images": [{"image_id": "Pbc9e706575047cee", "src": "images/P023401b67e91dcf9.jpg"}, {"image_id": "Pbbdc69cefe29d910", "src": "images/Peb90ebe7ca5b25dc.jpg"}, {"image_id": "P3e26d6548e817298", "src": "images/P7860efe57d31b86a.jpg"}]}, {"bundle_id": "B902e269d4e25d5c8", "phase": "main", "wave": "stretch", "images": [{"image_id": "P8e1fc5ea42a11d72", "src": "images/P0ed2f2a6d4bf4d22.jpg"}, {"image_id": "Pea1df29e1937b319", "src": "images/Pbd4f2feaba4262d5.jpg"}, {"image_id": "P89d07a0cffead141", "src": "images/Pd1dac3a3a7c41606.jpg"}]}, {"bundle_id": "Bb5485b629b43da61", "phase": "main", "wave": "stretch", "images": [{"image_id": "P4581f2668f7172bd", "src": "images/Pf6ce037dee9e8966.jpg"}, {"image_id": "P60990cd0e6f994d5", "src": "images/P2c17fd7176f39621.jpg"}, {"image_id": "Pf47596ced7bc8fa8", "src": "images/Pab8a7c32a96130b2.jpg"}]}, {"bundle_id": "Be260476073658b5a", "phase": "main", "wave": "stretch", "images": [{"image_id": "P07d96dbef46ff40b", "src": "images/Pd5017ef8b294adea.jpg"}, {"image_id": "Pd9d6d0232c94e9d2", "src": "images/P9830950404da9ccc.jpg"}, {"image_id": "P5a8168cd161660f8", "src": "images/P1015cd4488d9e0ac.jpg"}]}, {"bundle_id": "Bf47d53b0995b1125", "phase": "main", "wave": "stretch", "images": [{"image_id": "P86954bebfbaded0e", "src": "images/P57f6af4485008ec6.jpg"}, {"image_id": "P050847629ed7b68e", "src": "images/P6e51d4031c21bee0.jpg"}, {"image_id": "Pd059b24fdc8e7f5f", "src": "images/Pf6946831f8cd8f6a.jpg"}]}, {"bundle_id": "Bfad0d9b7fd5ae3e9", "phase": "main", "wave": "stretch", "images": [{"image_id": "P7580cc2dabb79d79", "src": "images/P95ae196dce468cff.jpg"}, {"image_id": "P27af75cd00b4adae", "src": "images/Pfc43ee5bb8ff60e5.jpg"}, {"image_id": "P572bfdaa96d81570", "src": "images/P38cd67fca787c89c.jpg"}]}, {"bundle_id": "B1a614255445406ce", "phase": "main", "wave": "stretch", "images": [{"image_id": "P1ade5e964308b03b", "src": "images/Pd9ecd7a0bd07671e.jpg"}, {"image_id": "P73bff2538f0257c9", "src": "images/P42065155a644ce9e.jpg"}, {"image_id": "P127544af4ed4a425", "src": "images/P303e16f8f85481d1.jpg"}]}, {"bundle_id": "Bb7331bdfe113f017", "phase": "main", "wave": "stretch", "images": [{"image_id": "P5f051a893b165fbe", "src": "images/P5120c74c6dd9282c.jpg"}, {"image_id": "Pdda5d13167612e0d", "src": "images/P995602daa396dc00.jpg"}, {"image_id": "P53ebef9b7e64c378", "src": "images/Pdc2aa7c93e39c9b1.jpg"}]}, {"bundle_id": "Bdf8921206800de3c", "phase": "main", "wave": "stretch", "images": [{"image_id": "Pbb9d6b2d385c2808", "src": "images/P1b653cfcb9508dca.jpg"}, {"image_id": "Pf08ff09c838f65fb", "src": "images/P0fe441711df3279b.jpg"}, {"image_id": "P0b7feb27adaf8027", "src": "images/Pfe7a71350a3178f6.jpg"}]}, {"bundle_id": "B4dd738921884abec", "phase": "main", "wave": "stretch", "images": [{"image_id": "P73d67833c3353317", "src": "images/Pe047faa5bc284fbc.jpg"}, {"image_id": "P2f02abc405f3ec21", "src": "images/Pda3e5f4bd5c31d2b.jpg"}, {"image_id": "P9836ec21fe7f4419", "src": "images/P8f86ff8995bfff4f.jpg"}]}, {"bundle_id": "Bbd9d7727082ad961", "phase": "main", "wave": "stretch", "images": [{"image_id": "P205239339b982fea", "src": "images/P15a0cbb9ae4cfbdc.jpg"}, {"image_id": "P877cb8cfbe5c00aa", "src": "images/P122a7daff04aa133.jpg"}, {"image_id": "P5801ca357ca25801", "src": "images/Pba45f0d5d5b4bfda.jpg"}]}, {"bundle_id": "B66958f88673b2f7f", "phase": "main", "wave": "stretch", "images": [{"image_id": "Pbadd3b530b0a326b", "src": "images/Pbd869f434e5a65d4.jpg"}, {"image_id": "P2c5b42f77702a264", "src": "images/Pf3b831c5ef13244b.jpg"}, {"image_id": "Pe5e33dae06998de9", "src": "images/P4cb49c70c8092bc6.jpg"}]}, {"bundle_id": "B1065e04bd483fb37", "phase": "main", "wave": "stretch", "images": [{"image_id": "Pfab03daadc4e338e", "src": "images/P9c5d13d86a58c985.jpg"}, {"image_id": "P6b0f7edaa3269f3c", "src": "images/Pe07b68582e29d80b.jpg"}, {"image_id": "P695e3d1fa6c2fea4", "src": "images/P2b006f566625e7a0.jpg"}]}, {"bundle_id": "B09bab15916103e94", "phase": "main", "wave": "stretch", "images": [{"image_id": "P671521930e1adfa6", "src": "images/Pb768c00205714fbf.jpg"}, {"image_id": "P56f716fa12edf1e0", "src": "images/P6b8968c3d78a2679.jpg"}, {"image_id": "Pb9244ba64363e943", "src": "images/P2aaa6e6e404fe3b1.jpg"}]}, {"bundle_id": "Bbc3f28f42a8a6803", "phase": "main", "wave": "stretch", "images": [{"image_id": "P213b283faf937fb8", "src": "images/P258e16c01373c12e.jpg"}, {"image_id": "Pc0eef295be16c236", "src": "images/P9126f0aca8f9720b.jpg"}, {"image_id": "P52f5f873a34c1df6", "src": "images/Pe0eefc43f9a6c53c.jpg"}]}, {"bundle_id": "B835ab907efed8101", "phase": "main", "wave": "stretch", "images": [{"image_id": "Pff00db9f6178d54b", "src": "images/P83a2ac9ee8824c68.jpg"}, {"image_id": "P67fdf8b57a756349", "src": "images/P0a8b3e4dc5fd98a1.jpg"}, {"image_id": "P8d38734e2a9d6b97", "src": "images/P60fa87b1d06e374d.jpg"}]}, {"bundle_id": "Bb51aed516de7ea98", "phase": "main", "wave": "stretch", "images": [{"image_id": "P370d3087829f35ca", "src": "images/P2c6cec5de69449a2.jpg"}, {"image_id": "P1300bad1b1c3e451", "src": "images/P24ebed18c712d241.jpg"}, {"image_id": "P07bed3f736833d56", "src": "images/Pd4346714d033a84c.jpg"}]}, {"bundle_id": "B9861055c4b1682b3", "phase": "main", "wave": "stretch", "images": [{"image_id": "Paac85cda69c0a59a", "src": "images/P4beb59e7db0a718c.jpg"}, {"image_id": "Pc07450659a3f50ee", "src": "images/Pcf7451fa43f96ae5.jpg"}, {"image_id": "P4edf877ad486d9ac", "src": "images/P0881c37149e28a12.jpg"}]}, {"bundle_id": "Bf344159afa0ae65f", "phase": "main", "wave": "stretch", "images": [{"image_id": "P532dce4586f959e5", "src": "images/P80d9b826fb8e243c.jpg"}, {"image_id": "Pb851dfa7aabb1ff7", "src": "images/P286ec20eb6ff38bd.jpg"}, {"image_id": "P4abe82e032294b78", "src": "images/Pc0f1485d041cdbd6.jpg"}]}, {"bundle_id": "B8778b5e935a50177", "phase": "main", "wave": "stretch", "images": [{"image_id": "Pe228edb98c072470", "src": "images/P54fbfbe7e5009cf1.jpg"}, {"image_id": "Pec19e6418d2b17f9", "src": "images/Pa1e12b480deaf62a.jpg"}, {"image_id": "P258d426afc656def", "src": "images/Pcd5188b3d5f02927.jpg"}]}, {"bundle_id": "B48d0c38d091fc8b7", "phase": "main", "wave": "stretch", "images": [{"image_id": "P678027db7e72ceb8", "src": "images/P572319d8b27b6b52.jpg"}, {"image_id": "P37ee557db4987f65", "src": "images/Pb0f8b07d94efab36.jpg"}, {"image_id": "P33d1f69b3db3e792", "src": "images/P76c86a4a81286dec.jpg"}]}, {"bundle_id": "B89368a90143341da", "phase": "main", "wave": "stretch", "images": [{"image_id": "P6b1e3f713db60029", "src": "images/Pd118d12d9c20a2e8.jpg"}, {"image_id": "Pc5416f96549d3d41", "src": "images/Pe2fa48b739efdae9.jpg"}, {"image_id": "Pefd546ab8b8e870c", "src": "images/Padcb119df98fe843.jpg"}]}, {"bundle_id": "B3d2f78ab847451f7", "phase": "main", "wave": "stretch", "images": [{"image_id": "Peb363ad60afd600d", "src": "images/P5d65ce8d9855d348.jpg"}, {"image_id": "P3dfd27f4031aba96", "src": "images/P651a0c8e75ec5752.jpg"}, {"image_id": "P663a8cb0557c6ef6", "src": "images/Pce0a30c162a0b142.jpg"}]}, {"bundle_id": "B70cdbc25b1112cbf", "phase": "main", "wave": "stretch", "images": [{"image_id": "P6f99cde2d8e3ab9b", "src": "images/P0fe885a7c609a7c8.jpg"}, {"image_id": "P219a5a33b6507d9e", "src": "images/Pb1c467eec06f8425.jpg"}, {"image_id": "P3aad19ce45be501e", "src": "images/P7bd3e9c85f98257c.jpg"}]}, {"bundle_id": "Bc833d5a780da92ef", "phase": "main", "wave": "stretch", "images": [{"image_id": "P4e7faf56bb0ed1ca", "src": "images/Pd1d9ea531562fff6.jpg"}, {"image_id": "Pf764042f61f78550", "src": "images/Pd98de60515924c2c.jpg"}, {"image_id": "P7ff640f79f734960", "src": "images/P277cbff3eec73c3d.jpg"}]}, {"bundle_id": "Bbe06441444223b44", "phase": "main", "wave": "stretch", "images": [{"image_id": "Pc5e99a9a0d201f8f", "src": "images/P7622732bacc00a8f.jpg"}, {"image_id": "Pb836cb34b2042ac5", "src": "images/P0e144fec4b439618.jpg"}, {"image_id": "P67783ba4a274ffef", "src": "images/Pa7724f6c7a1d4cad.jpg"}]}, {"bundle_id": "B9489238382f8d5d1", "phase": "main", "wave": "stretch", "images": [{"image_id": "Pbd5278e93e59067c", "src": "images/P8ca3c6d02a5d9d09.jpg"}, {"image_id": "P3bd5c5dc43a8bcd2", "src": "images/P7fd28c5135dee4a7.jpg"}, {"image_id": "P13f0da73b8e79e42", "src": "images/Pa1739c0aec578bf3.jpg"}]}, {"bundle_id": "B5cc2a3dc57c2af41", "phase": "main", "wave": "stretch", "images": [{"image_id": "P45c0e2c58823a36a", "src": "images/Pda9e920214b28d20.jpg"}, {"image_id": "P1b123754bcff5d7e", "src": "images/P827c39463241712a.jpg"}, {"image_id": "Peebcc7cbc95825e5", "src": "images/P46d283997fad9a22.jpg"}]}, {"bundle_id": "B2085493ac0592220", "phase": "main", "wave": "stretch", "images": [{"image_id": "P4451abae66ea95a1", "src": "images/P98a663f801ec7f23.jpg"}, {"image_id": "P31065850690c6bb0", "src": "images/Pdc690c2e650815af.jpg"}, {"image_id": "P86fa63e4c87f6f2a", "src": "images/P336cb4ca6b251477.jpg"}]}, {"bundle_id": "B8be6ff20443598dd", "phase": "main", "wave": "stretch", "images": [{"image_id": "P826625477e7083f0", "src": "images/P06e04cf3439c8f16.jpg"}, {"image_id": "Pf037799d241a0970", "src": "images/P63b2141bc79435a7.jpg"}, {"image_id": "P2f17f7c45b8fc17d", "src": "images/P2e09230eb9d9ebe0.jpg"}]}, {"bundle_id": "B5ae260534169e2f4", "phase": "main", "wave": "stretch", "images": [{"image_id": "P68b4d9cf9bdb4b3d", "src": "images/P804fc18a07f48ebe.jpg"}, {"image_id": "P126985e9020c4848", "src": "images/P053ce17c7e0d0f1e.jpg"}, {"image_id": "Pf1064c32dcbbf73c", "src": "images/P7ee997561c734b86.jpg"}]}, {"bundle_id": "Bc0a5057bcb6d7406", "phase": "main", "wave": "stretch", "images": [{"image_id": "P536d8b8229810d2d", "src": "images/P71d0a4d8299d6e9e.jpg"}, {"image_id": "Pba43218fb7c2bf52", "src": "images/P2072d8076b9aebe8.jpg"}, {"image_id": "P95aac985a58e47e9", "src": "images/P40ae0737fdc218e2.jpg"}]}, {"bundle_id": "B890a5c601c93114b", "phase": "main", "wave": "stretch", "images": [{"image_id": "Pc6f4d23fcef1447f", "src": "images/P0a19ef9e2ce0e041.jpg"}, {"image_id": "P6db9e37269a9c783", "src": "images/P4af8511fe5c69c6f.jpg"}, {"image_id": "Pb78fca4bd0e3c512", "src": "images/Peb01c5460cd653be.jpg"}]}, {"bundle_id": "B128203980f61113b", "phase": "main", "wave": "stretch", "images": [{"image_id": "Pa0a9b92ad7029b38", "src": "images/P8b0e7cf595fc44ab.jpg"}, {"image_id": "Pe9ef5c3e50b8e4c2", "src": "images/P3e0b8ecf52d2d01f.jpg"}, {"image_id": "Pae9c59e63384712c", "src": "images/P9b93275f39dbb5f0.jpg"}]}, {"bundle_id": "B176434d38ccedc98", "phase": "main", "wave": "stretch", "images": [{"image_id": "Pc507614494cf4cc4", "src": "images/Pd2c19584e6f88006.jpg"}, {"image_id": "Pa286adcfffbfeb9e", "src": "images/Pf312dec95e0ee144.jpg"}, {"image_id": "P6297b45915d99d7d", "src": "images/Pe18d64f2166058d9.jpg"}]}, {"bundle_id": "B7e7ea20180304732", "phase": "main", "wave": "stretch", "images": [{"image_id": "Pbabb888fa97b8bbb", "src": "images/Pf33bb5068de084e3.jpg"}, {"image_id": "Pae0736d8c7a8d653", "src": "images/P30e4fabb50a393ef.jpg"}, {"image_id": "Pca5709c3619d9538", "src": "images/P11c016bea30db0d0.jpg"}]}, {"bundle_id": "B72305ec09d3f4eea", "phase": "main", "wave": "stretch", "images": [{"image_id": "P79d315fca8b1fe8f", "src": "images/P594a30b81c41e94e.jpg"}, {"image_id": "P1f9014d8b75ffe66", "src": "images/P359b545bb5f7b573.jpg"}, {"image_id": "P1d0adcd11b1f4ac9", "src": "images/P475f0380e716c47d.jpg"}]}, {"bundle_id": "B60aca93011917d6e", "phase": "main", "wave": "stretch", "images": [{"image_id": "P4f96195b0728ea42", "src": "images/P65c7ad8674645c98.jpg"}, {"image_id": "P0ea5f1c12b6ae415", "src": "images/Pbd2d56943282ca3a.jpg"}, {"image_id": "Pdbd5b03238a004ab", "src": "images/P1793db6c5ed82ea3.jpg"}]}, {"bundle_id": "Ba0632e753994e8cd", "phase": "main", "wave": "stretch", "images": [{"image_id": "P48a09101944b27b2", "src": "images/Pfd67202086254e71.jpg"}, {"image_id": "P8e602c4fd9fa2744", "src": "images/P099a8341a99fcb4d.jpg"}, {"image_id": "P13d517549e2a9e4c", "src": "images/Pc1b4b3070b64ef8e.jpg"}]}, {"bundle_id": "Bf612c5ca3f0af9c3", "phase": "main", "wave": "stretch", "images": [{"image_id": "P08ce7d56e422647a", "src": "images/P4f20684c4c505221.jpg"}, {"image_id": "P402fb2ec1a0b901f", "src": "images/Pc772b95b30c0af71.jpg"}, {"image_id": "P50c2394843c45d8c", "src": "images/P19997ef6dd7ed69c.jpg"}]}, {"bundle_id": "Bd76aa6615073663c", "phase": "main", "wave": "stretch", "images": [{"image_id": "P4f1903041dc15871", "src": "images/P4816f826621fe97c.jpg"}, {"image_id": "P781d06a01477266f", "src": "images/P02f26c3040bdc5db.jpg"}, {"image_id": "P5403ae9923a1eae0", "src": "images/P30deeb59d10cd4be.jpg"}]}, {"bundle_id": "B33fd99c7ab414416", "phase": "main", "wave": "stretch", "images": [{"image_id": "Pc7d956fa6416f62b", "src": "images/Pa500d6cb1f2619f7.jpg"}, {"image_id": "Pb262ec696441348d", "src": "images/P012eaabca715aded.jpg"}, {"image_id": "P899908d941f2fd3a", "src": "images/Pc62820e62ad784cd.jpg"}]}, {"bundle_id": "B7b4339a273b2b01b", "phase": "main", "wave": "stretch", "images": [{"image_id": "P0f0dee425611c065", "src": "images/Pfbdeaf7c92f2d3ff.jpg"}, {"image_id": "P66b0402e7a43d9f5", "src": "images/P12fa5a26a47166af.jpg"}, {"image_id": "P8119fd0a4f27c0b5", "src": "images/P52b94fa7d81851ac.jpg"}]}, {"bundle_id": "B78de86595cc32da9", "phase": "main", "wave": "stretch", "images": [{"image_id": "P0454d2a3b2dd7c3f", "src": "images/P3e4cd9cb74ef6c04.jpg"}, {"image_id": "Pdfc040a9b41b281b", "src": "images/P1d8210610ee9ae06.jpg"}, {"image_id": "P93c868bcd2f95024", "src": "images/Pca37e6992ea92de0.jpg"}]}, {"bundle_id": "Bf59a5bfd9c7988ff", "phase": "main", "wave": "stretch", "images": [{"image_id": "Pd1fd6cca385696b1", "src": "images/P26603c495207efea.jpg"}, {"image_id": "P1b812d6f39334c72", "src": "images/P84f42e6f3be1e0f4.jpg"}, {"image_id": "Pa90cf0d28eb7ed65", "src": "images/P9857a5ac2b003980.jpg"}]}, {"bundle_id": "Bc58b323742bd02b1", "phase": "main", "wave": "stretch", "images": [{"image_id": "P9acb3bfaa6c3dcb9", "src": "images/P7cc4ba391427b78a.jpg"}, {"image_id": "Pb7097cb5272c9962", "src": "images/Pba741fee53c76995.jpg"}, {"image_id": "Pac6a6c21c9b418e3", "src": "images/P26373e6000ec9077.jpg"}]}, {"bundle_id": "Bdedbb1c7d9703528", "phase": "main", "wave": "stretch", "images": [{"image_id": "P71883ea79084c0bf", "src": "images/P51a98b213b9c6530.jpg"}, {"image_id": "Pafc6779497800209", "src": "images/Pb8588ef230949e5f.jpg"}, {"image_id": "Pf124ace2955ae93b", "src": "images/Pa56b795cbdfb51ad.jpg"}]}, {"bundle_id": "B8660fb8b7138d3db", "phase": "main", "wave": "stretch", "images": [{"image_id": "P4314683be9e945c9", "src": "images/P85ee447b2a5bc740.jpg"}, {"image_id": "Pc5a7fa846a8ac180", "src": "images/P1901d16bb83d6639.jpg"}, {"image_id": "Paad80ee163e508e2", "src": "images/Pe6f4b48b5bd799a9.jpg"}]}, {"bundle_id": "Bffc2a177073e96fe", "phase": "main", "wave": "stretch", "images": [{"image_id": "Pb2066bb8e449a136", "src": "images/P13a52460717fc559.jpg"}, {"image_id": "P5cf2edac4320cd0a", "src": "images/P15ab2eb2bf81f3cf.jpg"}, {"image_id": "P50697e5c12d2455a", "src": "images/P4b498d09d9a5cae7.jpg"}]}, {"bundle_id": "Be78d643ee6482b06", "phase": "main", "wave": "stretch", "images": [{"image_id": "P8d283fecd588836b", "src": "images/Pc388a1f6ecd62e2d.jpg"}, {"image_id": "Pcf5e15f5d32cf17a", "src": "images/P889ab64491947779.jpg"}, {"image_id": "P71e28a1fcf5e20b9", "src": "images/P3499f9f0afda44a6.jpg"}]}, {"bundle_id": "Baddeb7a19fbc2898", "phase": "main", "wave": "stretch", "images": [{"image_id": "P822eb2079d97f91e", "src": "images/P33b83185c17f6ba2.jpg"}, {"image_id": "P339ae8c0ed01cfff", "src": "images/Pafac8104411fae07.jpg"}, {"image_id": "Pa836e14532da4ac0", "src": "images/Pb02a328871da448c.jpg"}]}, {"bundle_id": "B770862ef516abb5e", "phase": "main", "wave": "stretch", "images": [{"image_id": "P3262ea030b294e4b", "src": "images/Pd32e87361267b3e6.jpg"}, {"image_id": "P3cc27460eeee5a19", "src": "images/Pad8fbcdb5db51135.jpg"}, {"image_id": "P235e2bdc731f8227", "src": "images/Pd8fc5d83f9df8a0b.jpg"}]}, {"bundle_id": "B4e55e0e28eb37127", "phase": "main", "wave": "stretch", "images": [{"image_id": "P74ccff7a35808e8e", "src": "images/P38b4d9735008364e.jpg"}, {"image_id": "Pac5ac7f4cb61ef3e", "src": "images/P3872601fac82fb6a.jpg"}, {"image_id": "Pee50c087c8e3a6d4", "src": "images/P7de1935342ab6c5e.jpg"}]}, {"bundle_id": "B076babb469f885b2", "phase": "main", "wave": "stretch", "images": [{"image_id": "P0a2b006bdc3fe8d3", "src": "images/Pfd6ae4599be8bb04.jpg"}, {"image_id": "Pe689c7e930b32676", "src": "images/Pb1de69cc2c0d44fb.jpg"}, {"image_id": "P0854381aa32f35ba", "src": "images/P24b9e0749f4a359e.jpg"}]}, {"bundle_id": "Bc2848390d2fa9d96", "phase": "main", "wave": "stretch", "images": [{"image_id": "Pf134e776f3217a88", "src": "images/P115266352c6ef56e.jpg"}, {"image_id": "P7205fed10a567c5a", "src": "images/Pf4331b68459b8585.jpg"}, {"image_id": "P2790434099d6be4b", "src": "images/P2214062d8a76f272.jpg"}]}, {"bundle_id": "B2d23ad6df01bb854", "phase": "main", "wave": "stretch", "images": [{"image_id": "P0e3dc29cfbe02aab", "src": "images/P012ad52f4683c905.jpg"}, {"image_id": "Pb447cefaabaf6141", "src": "images/P4bffaa9057025ef8.jpg"}, {"image_id": "P5ebf5eb58fef5f61", "src": "images/Pd49bae989cc56669.jpg"}]}, {"bundle_id": "B9638349e617fb77e", "phase": "main", "wave": "stretch", "images": [{"image_id": "Pe6beb9104946d6f8", "src": "images/P937fa180991f5606.jpg"}, {"image_id": "Pec8343657dd0e995", "src": "images/Pf71142899a85d629.jpg"}, {"image_id": "P8cfc5dbf1ca1599e", "src": "images/P18b5d7441efdf648.jpg"}]}, {"bundle_id": "B77bcd67ed8ef4031", "phase": "main", "wave": "stretch", "images": [{"image_id": "P4f48869100cb218c", "src": "images/Pef9e527c8e0226dd.jpg"}, {"image_id": "Pc5d8fe898ff68124", "src": "images/Pc44d67b77768b926.jpg"}, {"image_id": "P9750743d28409b2a", "src": "images/P3ebbf49fa1aceb64.jpg"}]}, {"bundle_id": "B48660fdeb2f858c6", "phase": "main", "wave": "stretch", "images": [{"image_id": "P7e36c998cebf821e", "src": "images/P02b35fb36beaacd5.jpg"}, {"image_id": "P628b224840db475e", "src": "images/Pf03d38793d19038d.jpg"}, {"image_id": "Pd6a59050c0055b24", "src": "images/Pcddf866cc90b55e9.jpg"}]}, {"bundle_id": "Bcd7588f72f8baa98", "phase": "main", "wave": "stretch", "images": [{"image_id": "P0222a089b191440e", "src": "images/Pb571c0d3223081af.jpg"}, {"image_id": "P5a8c1f9b75bbde07", "src": "images/Pf219bafbee64ca6c.jpg"}, {"image_id": "P5a36f563a6f3116f", "src": "images/P9e1748e509c071b7.jpg"}]}, {"bundle_id": "B867adfb96031d71d", "phase": "main", "wave": "stretch_checks", "images": [{"image_id": "Pa5f43fed512cdbb8", "src": "images/Pf6ce037dee9e8966.jpg"}, {"image_id": "P9e91192511627837", "src": "images/P2c17fd7176f39621.jpg"}, {"image_id": "P7b00d5f89d57a41d", "src": "images/Pab8a7c32a96130b2.jpg"}]}, {"bundle_id": "B54bf8cd48aa27428", "phase": "main", "wave": "stretch_checks", "images": [{"image_id": "P9814b7cd6e63fe5c", "src": "images/Pd5017ef8b294adea.jpg"}, {"image_id": "Pe91e7383d2b053af", "src": "images/P9830950404da9ccc.jpg"}, {"image_id": "P2f44a98580799b77", "src": "images/P1015cd4488d9e0ac.jpg"}]}, {"bundle_id": "B6c7df460cb69a581", "phase": "main", "wave": "stretch_checks", "images": [{"image_id": "P283d00514d2158ba", "src": "images/P023401b67e91dcf9.jpg"}, {"image_id": "P95cbd15b49f540a6", "src": "images/Peb90ebe7ca5b25dc.jpg"}, {"image_id": "Pabfedb9995648839", "src": "images/P7860efe57d31b86a.jpg"}]}, {"bundle_id": "Bef817955ebc0a390", "phase": "main", "wave": "stretch_checks", "images": [{"image_id": "Pd8f99210eb07d92d", "src": "images/P0ed2f2a6d4bf4d22.jpg"}, {"image_id": "P2ee30ee2a6413d77", "src": "images/Pbd4f2feaba4262d5.jpg"}, {"image_id": "P5d915c1e1ee92dab", "src": "images/Pd1dac3a3a7c41606.jpg"}]}]}</script><script>'use strict';
+const DATA = JSON.parse(document.getElementById('packet-data').textContent);
+const $ = id => document.getElementById(id);
+const KEY = [DATA.study, DATA.packet_id, DATA.task, DATA.rater].join(':');
+const UNKNOWN = 'cannot_assess', NA = 'not_applicable';
+let state = {study:DATA.study, schema_version:6, packet_id:DATA.packet_id, task:DATA.task,
+  rater:DATA.rater, person:'', session:new Date().toISOString().slice(0,10), position:0,
+  frameIndex:0, responses:{}, revision:0, lastExportRevision:0};
+let storageOK = true, lastAction = Date.now();
+const byId = new Map(DATA.bundles.map(b => [b.bundle_id,b]));
+const now = () => new Date().toISOString();
+const hasAnswers = () => Object.keys(state.responses).length > 0;
+const bundle = () => DATA.bundles[state.position];
+const label = wave => ({practice:'Practice',first_wave:'First wave',night_core:'Core nighttime',day_core:'Core daytime',core_checks:'Final core locations',stretch:'Optional extension',stretch_checks:'Final extension locations'}[wave]);
+const specs = {quality:DATA.quality, features:DATA.features};
+const stable = value => JSON.stringify(value, function(k,v){return v&&typeof v==='object'&&!Array.isArray(v)?Object.keys(v).sort().reduce((o,k)=>(o[k]=v[k],o),{}):v;});
+
+function message(text) { $('message').textContent=text; $('message').hidden=!text; }
+function known(spec, value) { return value===UNKNOWN || spec.choices.some(c=>c[0]===value); }
+function answerErrors(r,b,complete=r.complete) {
+  const errors=[];
+  if(r.bundle_id!==b.bundle_id) errors.push('Location ID mismatch');
+  if(!['','no','possibly','yes'].includes(r.familiarity||'') || (complete&&!r.familiarity)) errors.push('Place recognition');
+  if(DATA.task==='components') {
+    if(!r.images || typeof r.images!=='object' || Array.isArray(r.images)) return ['Invalid image answers'];
+    if(Object.keys(r.images).some(id=>!b.images.some(f=>f.image_id===id))) errors.push('Unknown image');
+    for(const f of b.images) {
+      const values=r.images[f.image_id]||{};
+      if(Object.keys(values).some(k=>!['quality','features'].includes(k))) errors.push('Unknown image field');
+      for(const block of ['quality','features']) {
+        const v=values[block]||{};
+        if(typeof v!=='object'||Array.isArray(v)) {errors.push('Invalid answers');continue;}
+        if(Object.keys(v).some(k=>!specs[block].some(s=>s.name===k))) errors.push('Unknown label');
+        for(const spec of specs[block]) if((v[spec.name]!==undefined&&typeof v[spec.name]!=='string')||(v[spec.name]&&!known(spec,v[spec.name]))||(complete&&!v[spec.name])) errors.push(f.image_id+' / '+spec.title);
+      }
+      const q=values.quality||{}, v=values.features||{}, n=v.night_route_visibility;
+      if(['daylight','twilight'].includes(q.depicted_light)&&n&&n!==NA) errors.push('Daylight/twilight: night visibility must be not applicable');
+      if(q.depicted_light==='night'&&n===NA) errors.push('Night visibility cannot be daytime not-applicable');
+      if(q.depicted_light===UNKNOWN&&n&&n!==UNKNOWN) errors.push('Unknown light condition: night visibility cannot be determined');
+      if(v.pedestrian_route_type==='none'&&v.pedestrian_route_blockage&&v.pedestrian_route_blockage!==NA) errors.push('No path: blockage must be not applicable');
+      if(v.pedestrian_route_type&&v.pedestrian_route_type!=='none'&&v.pedestrian_route_blockage===NA) errors.push('Blockage is not applicable only when no path is visible');
+      if(complete&&n===NA&&!['daylight','twilight'].includes(q.depicted_light)) errors.push('Check night applicability');
+    }
+  } else {
+    if(r.viewed_all!==undefined&&typeof r.viewed_all!=='boolean')errors.push('Invalid image inspection confirmation');
+    const name=DATA.task==='photo_safety'?'safety':'original_scale';
+    if(!['','0','1','2','3',UNKNOWN].includes(r[name]||'')||(complete&&!r[name])) errors.push('Safety rating');
+    if(DATA.task==='photo_safety'&&(!['','low','medium','high'].includes(r.confidence||'')||(complete&&!r.confidence))) errors.push('Confidence');
+    if(complete&&r.viewed_all!==true) errors.push('Confirm you inspected every photograph');
+  }
+  if(typeof (r.note||'')!=='string'||(r.note||'').length>2000) errors.push('Invalid note');
+  return errors;
+}
+function validateIncoming(v,allowEmpty=false) {
+  if(!v||typeof v!=='object'||Array.isArray(v))throw Error('The export must be a JSON object.');
+  for(const k of ['study','schema_version','packet_id','task','rater']) if(v[k]!==DATA[k]) throw Error('This file belongs to a different task, reviewer slot, version or packet. Version-1 files stay separate.');
+  if(!v.responses||typeof v.responses!=='object'||Array.isArray(v.responses)) throw Error('Missing response dictionary.');
+  if(typeof v.person!=='string'||v.person.length>80||(!v.person.trim()&&(!allowEmpty||Object.keys(v.responses).length))) throw Error('Reviewer code is missing.');
+  if(typeof v.session!=='string'||!v.session.trim()) throw Error('Session code is missing.');
+  if(!Number.isInteger(v.revision)||v.revision<0) throw Error('Invalid revision.');
+  if(typeof v.exported_at!=='string'||!/^\d{4}-.*(?:Z|[+-]\d\d:\d\d)$/.test(v.exported_at)||!Number.isFinite(Date.parse(v.exported_at)))throw Error('Invalid export timestamp.');
+  for(const [id,r] of Object.entries(v.responses)) {
+    if(!byId.has(id)||!r||typeof r!=='object'||typeof r.complete!=='boolean') throw Error('Unknown location or invalid completion flag.');
+    if(r.person!==v.person||typeof r.session!=='string'||!r.session.trim()) throw Error('Mixed or missing reviewer identities.');
+    for(const key of ['updated_at',...(r.complete?['completed_at']:[])]) if(typeof r[key]!=='string'||!/^\d{4}-.*(?:Z|[+-]\d\d:\d\d)$/.test(r[key])||!Number.isFinite(Date.parse(r[key]))) throw Error('Invalid answer timestamp.');
+    const errors=answerErrors(r,byId.get(id));
+    if(errors.length) throw Error('Invalid or incomplete answers: '+errors.slice(0,3).join('; '));
+  }
+  return v;
+}
+function snapshot() { return {...state,exported_at:now()}; }
+function persist() {
+  try {
+    const previous=localStorage.getItem(KEY);
+    if(previous) {
+      try {validateIncoming(JSON.parse(previous),true);localStorage.setItem(KEY+':backup',previous);}catch(e){}
+    }
+    localStorage.setItem(KEY,JSON.stringify(snapshot()));storageOK=true;
+  } catch(e) {storageOK=false;}
+  updateStatus();
+}
+function updateStatus() {
+  const completed=DATA.bundles.filter(b=>state.responses[b.bundle_id]?.complete).length;
+  $('status').textContent=`${completed} of ${DATA.bundles.length} locations complete. `+
+    (storageOK?'Saved in this browser. ':'Browser saving is unavailable: download a backup now. ')+
+    (state.revision>state.lastExportRevision?'Changes since your last JSON backup.':'No new answers since the last backup.');
+  $('person').disabled=hasAnswers();
+  $('prev').disabled=state.position===0;$('next').disabled=state.position===DATA.bundles.length-1;
+  for(let i=0;i<DATA.bundles.length;i++) {
+    const b=DATA.bundles[i];$('jump').options[i].textContent=`${state.responses[b.bundle_id]?.complete?'✓ ':''}${i+1}. ${label(b.wave)}`;
+  }
+}
+function editable() {
+  if(!state.person.trim()||!state.session.trim()) {message('Enter your reviewer code and session before answering.');$('person').focus();return false;}
+  return true;
+}
+function change(mutator) {
+  if(!editable()) {render();return;}
+  const b=bundle();let r=state.responses[b.bundle_id];
+  if(!r) r=state.responses[b.bundle_id]={bundle_id:b.bundle_id,person:state.person,session:state.session,
+    complete:false,images:{},familiarity:'',note:'',updated_at:now(),active_seconds:0};
+  const delta=(Date.now()-lastAction)/1000;lastAction=Date.now();
+  if(document.visibilityState==='visible'&&delta>=0&&delta<=30) r.active_seconds=Math.round(((r.active_seconds||0)+delta)*10)/10;
+  mutator(r);r.complete=false;delete r.completed_at;r.updated_at=now();r.session=state.session;
+  state.revision++;persist();
+}
+function setFrame(block,key,value) {
+  const id=bundle().images[state.frameIndex].image_id;
+  change(r=>{
+    const f=r.images[id]||(r.images[id]={quality:{},features:{}});f[block][key]=value;
+    if(key==='depicted_light') {
+      if(['daylight','twilight'].includes(value)) f.features.night_route_visibility=NA;
+      else if(value===UNKNOWN) f.features.night_route_visibility=UNKNOWN;
+      else if(f.features.night_route_visibility===NA) delete f.features.night_route_visibility;
+    }
+    if(key==='pedestrian_route_type') {
+      if(value==='none') f.features.pedestrian_route_blockage=NA;
+      else if(f.features.pedestrian_route_blockage===NA) delete f.features.pedestrian_route_blockage;
+    }
+  });render();
+}
+function node(tag,cls,text) {const n=document.createElement(tag);if(cls)n.className=cls;if(text)n.textContent=text;return n;}
+function selectField(root,title,options,value,callback,hint='',name='') {
+  const wrap=node('div','field'), l=node('label','',title), s=document.createElement('select');
+  if(name) s.dataset.field=name;
+  for(const [v,t] of [['','Choose an answer…'],...options]) {const o=document.createElement('option');o.value=v;o.textContent=t;s.append(o);}
+  s.value=value||'';l.append(s);wrap.append(l);if(hint)wrap.append(node('small','hint',hint));
+  s.onchange=()=>callback(s.value);root.append(wrap);return s;
+}
+function zoom(frame) {$('zoomImage').src=frame.src;$('zoom').showModal();}
+function photograph(frame,cls) {
+  const p=node('section',cls), im=document.createElement('img');im.src=frame.src;im.alt='Review photograph '+frame.image_id;
+  im.onclick=()=>zoom(frame);p.append(im);const button=node('button','','Open full-size photo');button.onclick=()=>zoom(frame);p.append(button);return p;
+}
+function renderComponents(root,b,r) {
+  state.frameIndex=Math.min(Math.max(state.frameIndex,0),b.images.length-1);
+  const nav=node('div','frameNav'), text=node('strong','','Photo '+(state.frameIndex+1)+' of '+b.images.length);
+  nav.append(text);
+  for(const [title,step] of [['← Previous photo',-1],['Next photo →',1]]) {
+    const button=node('button','',title);button.disabled=state.frameIndex+step<0||state.frameIndex+step>=b.images.length;
+    button.onclick=()=>{state.frameIndex+=step;persist();render();};nav.append(button);
+  }
+  const done=b.images.filter(f=>{
+    const v=r.images?.[f.image_id];return v&&DATA.quality.every(s=>v.quality?.[s.name])&&DATA.features.every(s=>v.features?.[s.name]);
+  }).length;
+  const progress=node('p','muted',done+' of '+b.images.length+' photos have all fields answered.');progress.id='frameProgress';root.append(nav,progress);
+  const f=b.images[state.frameIndex], raw=r.images?.[f.image_id]||{};
+  const values={quality:raw.quality||{},features:raw.features||{}};
+  const layout=node('div','componentLayout'), photo=photograph(f,'photoPanel'), panel=node('section','questionPanel');
+  photo.append(node('p','muted','Judge only this photograph. Other directions may show different evidence.'));
+  const quality=node('div','quality');quality.append(node('h3','','First, check the photograph'));
+  for(const spec of DATA.quality) {
+    let choices=[...spec.choices];if(!choices.some(c=>c[0]===UNKNOWN))choices.push([UNKNOWN,'Cannot assess']);
+    selectField(quality,spec.title,choices,values.quality[spec.name],v=>setFrame('quality',spec.name,v),spec.hint,spec.name);
+  }
+  panel.append(quality,node('h3','','Visible features'));
+  for(const spec of DATA.features) {
+    const l=values.quality.depicted_light, path=values.features.pedestrian_route_type;
+    let choices=[...spec.choices,[UNKNOWN,'Cannot assess from this photograph']];
+    if(spec.name==='night_route_visibility') {
+      if(['daylight','twilight'].includes(l)) choices=[[NA,'Not applicable: daylight or twilight']];
+      else if(l===UNKNOWN)choices=[[UNKNOWN,'Cannot assess: light condition is unknown']];
+      else choices=choices.filter(c=>c[0]!==NA);
+    }
+    if(spec.name==='pedestrian_route_blockage') choices=path==='none'?[[NA,'Not applicable: no separate path']]:choices.filter(c=>c[0]!==NA);
+    const s=selectField(panel,spec.title,choices,values.features[spec.name],v=>setFrame('features',spec.name,v),spec.hint,spec.name);
+    if(choices.length===1)s.disabled=true;
+  }
+  const skip=node('button','','Mark remaining features “cannot assess”');skip.id='skipFeatures';
+  skip.onclick=()=>{change(r=>{const v=r.images[f.image_id]||(r.images[f.image_id]={quality:{},features:{}});for(const spec of DATA.features)if(!v.features[spec.name])v.features[spec.name]=UNKNOWN;
+    if(['daylight','twilight'].includes(v.quality.depicted_light))v.features.night_route_visibility=NA;
+    if(v.features.pedestrian_route_type==='none')v.features.pedestrian_route_blockage=NA;
+  });render();};panel.append(skip,node('p','muted','Use only when this view prevents assessment. Answers you already gave are kept.'));
+  layout.append(photo,panel);root.append(layout);
+}
+function renderSafety(root,b,r) {
+  const grid=node('div','photoGrid');for(const f of b.images)grid.append(photograph(f,'photoCard'));root.append(grid);
+  const card=node('section','ratingCard');card.append(node('h3','',DATA.task==='photo_safety'?DATA.safety_question:
+    'Apply the original auditor scale using only this photo bundle. If after-dark safety cannot be inferred, choose cannot judge.'));
+  const key=DATA.task==='photo_safety'?'safety':'original_scale', answers=node('div','answers');
+  for(const [value,text] of DATA.task==='photo_safety'?DATA.safety_choices:DATA.original_choices) {
+    const l=node('label','answer'), input=document.createElement('input');input.type='radio';input.name=key;input.value=value;input.checked=r[key]===value;
+    input.onchange=()=>{change(r=>r[key]=value);render();};l.append(input,document.createTextNode(text));answers.append(l);
+  }
+  card.append(answers);
+  if(DATA.task==='photo_safety')selectField(card,'Confidence in this safety judgment', [['low','Low'],['medium','Medium'],['high','High']],r.confidence,v=>{change(r=>r.confidence=v);render();},'Confidence is separate from safety. Low confidence does not mean unsafe.','confidence');
+  const seen=node('label','check'), checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.id='viewedAll';checkbox.checked=r.viewed_all===true;
+  checkbox.onchange=()=>{change(r=>r.viewed_all=checkbox.checked);render();};seen.append(checkbox,document.createTextNode('I have inspected every photograph in this location bundle.'));card.append(seen);root.append(card);
+}
+function render() {
+  const b=bundle(), r=state.responses[b.bundle_id]||{images:{}};const c=$('content');c.replaceChildren();$('jump').value=String(state.position);
+  const header=node('div','bundleHeader');header.append(node('div','eyebrow',label(b.wave)),node('h2','','Location '+(state.position+1)+' of '+DATA.bundles.length),node('small','',b.bundle_id));
+  if(r.complete)header.append(node('p','completeBadge','✓ Complete — editing an answer reopens this location.'));c.append(header);
+  if(DATA.task==='components')renderComponents(c,b,r);else renderSafety(c,b,r);
+  const finish=node('section','finish');
+  selectField(finish,'Do you recognize this place?', [['no','No'],['possibly','Possibly'],['yes','Yes']],r.familiarity,v=>{change(r=>r.familiarity=v);render();},'Use only the photos even if you recognize the place.','familiarity');
+  const l=node('label','',DATA.task==='photo_safety'?'Optional: one visible detail that influenced your rating':'Optional visibility or technical note');const note=document.createElement('textarea');note.maxLength=2000;note.value=r.note||'';
+  note.oninput=()=>change(r=>r.note=note.value);l.append(note);finish.append(l,node('p','muted','Do not include names, personal information or outside knowledge.'));
+  const errors=node('div','errorList');errors.id='completionErrors';errors.setAttribute('role','alert');finish.append(errors);
+  const actions=node('div','finishActions'), complete=node('button','primary','Mark location complete');complete.id='complete';
+  complete.onclick=()=>{
+    if(!editable())return;const current=state.responses[b.bundle_id]||{bundle_id:b.bundle_id,images:{}};const missing=answerErrors(current,b,true);
+    if(missing.length){errors.textContent='Still needed: '+missing.slice(0,5).join('; ')+(missing.length>5?' (and more)':'');return;}
+    current.complete=true;current.completed_at=now();current.updated_at=now();current.session=state.session;state.revision++;persist();render();
+    $('completionErrors').textContent='Saved complete. Download a backup, or move to the next location.';
+  };
+  const next=node('button','','Next location →');next.disabled=state.position===DATA.bundles.length-1;next.onclick=()=>navigate(state.position+1);
+  actions.append(complete,next);finish.append(actions);c.append(finish);updateStatus();
+}
+function navigate(position) {state.position=Math.max(0,Math.min(position,DATA.bundles.length-1));state.frameIndex=0;persist();message('');render();window.scrollTo(0,0);}
+
+// Version 5: one questionnaire per location, using all three views.
+const originalChange=change;
+const originalStatus=updateStatus;
+updateStatus=function(){
+  originalStatus();let summary=$('coreStatus');
+  if(!summary){summary=node('p','coreStatus');summary.id='coreStatus';$('status').after(summary);}
+  const n=DATA.core_end_display,core=DATA.bundles.slice(0,n).filter(b=>state.responses[b.bundle_id]?.complete).length;
+  const extra=DATA.bundles.slice(n).filter(b=>state.responses[b.bundle_id]?.complete).length;
+  summary.textContent=`Core: ${core}/${n} displays complete in this task. Optional extension: ${extra}/${DATA.bundles.length-n}. Finish both core tasks before starting the extension.`;
+};
+function choices(s){const out=[...s.choices];if(!out.some(c=>c[0]===UNKNOWN))out.push([UNKNOWN,'I am not sure / cannot assess from these photographs']);return out;}
+function applyRules(r){
+  if(DATA.task!=='components')return;
+  const a=r.answers||(r.answers={});
+  if(['daylight','twilight'].includes(r.bundle_light))a.safetipin_lighting=NA;
+  else if(!r.bundle_light||r.bundle_light===UNKNOWN)a.safetipin_lighting=UNKNOWN;
+  else if(a.safetipin_lighting===NA)delete a.safetipin_lighting;
+  for(const [source,absent,target] of [['safetipin_walk_path','0','path_obstruction'],['vegetation_extent','0','vegetation_obstruction'],['road_surface',NA,'road_damage']]){
+    if(a[source]===absent)a[target]=NA;
+    else if(a[target]===NA)delete a[target];
+  }
+  if(Array.isArray(a.area_types)&&a.area_types.includes(UNKNOWN))a.main_area=UNKNOWN;
+  else if(a.main_area&&a.main_area!==UNKNOWN&&Array.isArray(a.area_types)&&!a.area_types.includes(a.main_area))delete a.main_area;
+}
+change=function(mutator){originalChange(r=>{mutator(r);applyRules(r);});};
+function componentErrors(r,b,complete){
+  const e=[],a=r.answers||{},q=r.image_quality||{};
+  if(typeof a!=='object'||Array.isArray(a)||Object.keys(a).some(k=>!DATA.items.some(s=>s.name===k)))return ['Invalid answer dictionary'];
+  if(typeof q!=='object'||Array.isArray(q)||Object.keys(q).some(k=>!b.images.some(f=>f.image_id===k)))return ['Invalid photo-quality dictionary'];
+  for(const f of b.images){const v=q[f.image_id]||'';if(!['','clear','partial','unusable',UNKNOWN].includes(v)||(complete&&!v))e.push('Photo quality');}
+  for(const s of DATA.items){const v=a[s.name];
+    if(s.multi){
+      if(v!==undefined&&(!Array.isArray(v)||v.some(x=>typeof x!=='string'||!known(s,x))||new Set(v).size!==v.length)){e.push('Invalid '+s.title);continue;}
+      if(v?.some(x=>['none',UNKNOWN].includes(x))&&v.length>1)e.push('Exclusive '+s.title);
+      if(complete&&!v?.length)e.push(s.title);
+    }else if((v!==undefined&&typeof v!=='string')||(v&&!known(s,v))||(complete&&!v))e.push(s.title);
+  }
+  const l=r.bundle_light,v=a.safetipin_lighting;
+  if(['daylight','twilight'].includes(l)&&v&&v!==NA)e.push('Daytime lighting must be not applicable');
+  if(l==='night'&&v===NA)e.push('Night lighting is applicable');
+  if((!l||l===UNKNOWN)&&v&&v!==UNKNOWN)e.push('Unknown time: lighting cannot be determined');
+  if(Array.isArray(a.area_types)&&a.main_area&&a.main_area!==UNKNOWN&&!a.area_types.includes(a.main_area))e.push('Dominant use must be among selected area types');
+  for(const [source,absent,target] of [['safetipin_walk_path','0','path_obstruction'],['vegetation_extent','0','vegetation_obstruction'],['road_surface',NA,'road_damage']]){
+    if(a[source]===absent&&a[target]&&a[target]!==NA)e.push('Check not applicable: '+target);
+    if(a[source]!==absent&&a[target]===NA)e.push('Check applicability: '+target);
+  }
+  for(const [key,multi] of [['lighting_other','lighting_types'],['area_other','area_types'],['green_other','green_space_type']]){
+    if((r[key]!==undefined&&typeof r[key]!=='string')||(r[key]||'').length>500||(complete&&a[multi]?.includes('other')&&!(r[key]||'').trim()))e.push('Specify '+key);
+  }
+  return e;
+}
+answerErrors=function(r,b,complete=r.complete){
+  const e=[];
+  if(r.bundle_id!==b.bundle_id)e.push('Location ID mismatch');
+  if(!['','no','possibly','yes'].includes(r.familiarity||'')||(complete&&!r.familiarity))e.push('Place recognition');
+  if(typeof(r.note||'')!=='string'||(r.note||'').length>2000)e.push('Invalid note');
+  if(!['','daylight','twilight','night',UNKNOWN].includes(r.bundle_light||'')||(complete&&!r.bundle_light))e.push('Depicted light condition');
+  if(DATA.task==='components')e.push(...componentErrors(r,b,complete));
+  else {
+    if(!['','0','1','2','3',UNKNOWN].includes(r.safety||'')||(complete&&!r.safety))e.push('Safety feeling');
+    if(!['','low','medium','high'].includes(r.confidence||'')||(complete&&!r.confidence))e.push('Confidence');
+    if(r.viewed_all!==undefined&&typeof r.viewed_all!=='boolean')e.push('Invalid inspection confirmation');
+    if(complete&&r.viewed_all!==true)e.push('Inspect all photographs');
+  }
+  return e;
+};
+function lightControl(root,r){
+  const panel=node('section','ratingCard metaCard');
+  selectField(panel,'What light conditions do the photographs show?', [['daylight','Daylight'],['twilight','Twilight'],['night','Night'],[UNKNOWN,'Mixed conditions / cannot tell']],r.bundle_light,v=>{change(r=>r.bundle_light=v);render();},'Judge the photographs, not the current time. Daylight does not establish nighttime lighting.','bundle_light');root.append(panel);
+}
+function setAnswer(key,value){change(r=>{r.answers=r.answers||{};r.answers[key]=value;});render();}
+function multiField(root,s,value){
+  const wrap=node('fieldset','multiField');wrap.dataset.field=s.name;wrap.append(node('legend','',s.title));
+  for(const [code,text] of choices(s)){
+    const label=node('label','multiChoice'),input=document.createElement('input');input.type='checkbox';input.dataset.choice=code;input.checked=Array.isArray(value)&&value.includes(code);
+    input.onchange=()=>{let values=Array.isArray(value)?[...value]:[];
+      if(input.checked){values=['none',UNKNOWN].includes(code)?[code]:[...values.filter(x=>!['none',UNKNOWN].includes(x)),code];}
+      else values=values.filter(x=>x!==code);
+      setAnswer(s.name,values);
+    };label.append(input,document.createTextNode(text));wrap.append(label);
+  }
+  wrap.append(node('small','hint',s.hint));root.append(wrap);
+}
+function otherField(root,r,key,title){
+  const label=node('label','otherField',title),input=document.createElement('input');input.maxLength=500;input.value=r[key]||'';input.dataset.field=key;
+  input.oninput=()=>change(r=>r[key]=input.value);label.append(input);root.append(label);
+}
+renderComponents=function(root,b,r){
+  lightControl(root,r);
+  const gallery=node('div','photoGrid bundleGallery');
+  for(const [i,f] of b.images.entries()){
+    const card=photograph(f,'photoCard');
+    selectField(card,'Photo '+(i+1)+' usability', [['clear','Clear usable view'],['partial','Partly obstructed / limited'],['unusable','Unusable view'],[UNKNOWN,'Cannot assess']],r.image_quality?.[f.image_id],v=>{change(r=>{r.image_quality=r.image_quality||{};r.image_quality[f.image_id]=v;});render();},'','quality_'+i);gallery.append(card);
+  }
+  root.append(gallery,node('p','muted','Answer once for this location using all three photographs. Count overlapping people, buildings and entrances once. Select “cannot assess” when evidence is missing; absence is not the default.'));
+  let group='',card;
+  for(const s of DATA.items){
+    if(s.group!==group){group=s.group;card=node('section','ratingCard questionGroup');card.append(node('h3','',group));root.append(card);}
+    const a=r.answers||{};let options=choices(s);
+    if(s.name==='safetipin_lighting')options=['daylight','twilight'].includes(r.bundle_light)?[[NA,'Not applicable: daylight/twilight photograph']]:r.bundle_light==='night'?options.filter(c=>c[0]!==NA):[[UNKNOWN,'Cannot assess: mixed / unspecified light conditions']];
+    for(const [source,absent,target] of [['safetipin_walk_path','0','path_obstruction'],['vegetation_extent','0','vegetation_obstruction'],['road_surface',NA,'road_damage']])if(s.name===target){if(a[source]===absent)options=options.filter(c=>c[0]===NA);else options=options.filter(c=>c[0]!==NA);}
+    if(s.multi)multiField(card,s,a[s.name]);
+    else {const sel=selectField(card,s.title,options,a[s.name],v=>setAnswer(s.name,v),s.hint,s.name);if(options.length===1)sel.disabled=true;}
+    for(const [multi,key,title] of [['lighting_types','lighting_other','Describe the other lighting type'],['area_types','area_other','Describe the other area type'],['green_space_type','green_other','Describe the other green/open space']])if(s.name===multi&&a[multi]?.includes('other'))otherField(card,r,key,title);
+  }
+};
+renderSafety=function(root,b,r){
+  lightControl(root,r);
+  const grid=node('div','photoGrid');for(const f of b.images)grid.append(photograph(f,'photoCard'));root.append(grid);
+  const card=node('section','ratingCard');card.append(node('h3','',DATA.safety_question),node('p','muted','Imagine walking alone here under the conditions shown. Use only the photographs. This records your perception, not a verified field outcome. The original Comfortable anchor refers to feeling safe even after dark; for daylight/twilight photos it is adapted to the depicted conditions.'));
+  const answers=node('div','answers');
+  for(const [code,label] of DATA.safety_choices){const text=code==='3'&&r.bundle_light==='night'?'Comfortable - Feel safe even after dark':label;
+    const row=node('label','answer'),input=document.createElement('input');input.type='radio';input.name='safety';input.value=code;input.checked=r.safety===code;
+    input.onchange=()=>{change(r=>r.safety=code);render();};row.append(input,document.createTextNode(text));answers.append(row);
+  }
+  card.append(answers);selectField(card,'Confidence in this safety judgment',[['low','Low'],['medium','Medium'],['high','High']],r.confidence,v=>{change(r=>r.confidence=v);render();},'Confidence is separate from the safety score.','confidence');
+  const seen=node('label','check'),check=document.createElement('input');check.type='checkbox';check.id='viewedAll';check.checked=r.viewed_all===true;
+  check.onchange=()=>{change(r=>r.viewed_all=check.checked);render();};seen.append(check,document.createTextNode('I have inspected every photograph in this location bundle.'));card.append(seen);root.append(card);
+};
+
+// Combined mobile workflow. V5 assignments are preserved in a separate namespace.
+const CONFIG=window.PHOTO_SURVEY_CONFIG||{};
+const originalPhoto=photograph;
+photograph=function(frame,cls){const card=originalPhoto(frame,cls),im=card.querySelector('img');im.onerror=()=>{if(!card.querySelector('.photoError'))card.append(node('p','photoError','Photo unavailable. Reconnect or prepare this batch on Wi-Fi. Do not rate an unloaded view.'));};return card;};
+function photosReady(){return [...document.querySelectorAll('#content img')].every(im=>im.complete&&im.naturalWidth>0);}
+const baseMobileChange=change,baseMobileStatus=updateStatus;
+function safetyErrors(r){return (!['daylight','twilight','night',UNKNOWN].includes(r.bundle_light)?['Depicted light']:[]).concat(!['0','1','2','3',UNKNOWN].includes(r.safety)?['Safety rating']:[],!['low','medium','high'].includes(r.confidence)?['Confidence']:[],r.viewed_all!==true?['Inspect all three photos']:[]);}
+answerErrors=function(r,b,complete=r.complete){
+  const errors=[];
+  if(r.bundle_id!==b.bundle_id)errors.push('Location mismatch');
+  if(!['','no','possibly','yes'].includes(r.familiarity||'')||(complete&&!r.familiarity))errors.push('Recognition');
+  if(typeof(r.note||'')!=='string'||(r.note||'').length>2000)errors.push('Invalid note');
+  if(r.safety_locked){
+    errors.push(...safetyErrors(r));
+    if(!r.initial_safety||r.initial_safety.safety!==r.safety||r.initial_safety.confidence!==r.confidence||r.initial_safety.bundle_light!==r.bundle_light||!Number.isFinite(Date.parse(r.safety_recorded_at)))errors.push('Initial safety record mismatch');
+    errors.push(...componentErrors(r,b,complete));
+  }else if(complete)errors.push('Record safety first');
+  return errors;
+};
+change=function(mutator){
+  const existing=state.responses[bundle().bundle_id];
+  const frozen=existing?.safety_locked?structuredClone(existing.initial_safety):null;
+  baseMobileChange(r=>{mutator(r);if(frozen){r.safety=frozen.safety;r.confidence=frozen.confidence;r.bundle_light=frozen.bundle_light;r.initial_safety=frozen;}});
+};
+function payloadFor(bid){const r=state.responses[bid];return {study:DATA.study,schema_version:DATA.schema_version,packet_id:DATA.packet_id,rater:DATA.rater,person:state.person,bundle_id:bid,response:structuredClone(r)};}
+async function digestText(s){const h=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('');}
+let syncing=false;
+async function syncNow(){
+  if(syncing)return;
+  if(!CONFIG.submissionUrl){message('Online submission is not configured. Your answers remain on this phone. Save a JSON backup.');return;}
+  if(!navigator.onLine){message('Offline: answers remain on this phone. Reconnect and press Send saved answers.');return;}
+  if(!storageOK){message('Phone saving is unavailable. Save a JSON backup before submitting.');return;}
+  syncing=true;let sent=0;
+  try{
+    for(const b of DATA.bundles){const r=state.responses[b.bundle_id];if(!r?.complete)continue;
+      const payload=payloadFor(b.bundle_id),body=stable(payload),id=await digestText(body);
+      state.receipts=state.receipts||{};if(state.receipts[b.bundle_id]===id)continue;
+      const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),30000);
+      let result;
+      try{const response=await fetch(CONFIG.submissionUrl,{method:'POST',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({...payload,event_id:id}),signal:controller.signal});if(!response.ok)throw Error('Server '+response.status);result=await response.json();}finally{clearTimeout(timer);}
+      if(!['ok','duplicate'].includes(result.status)||result.event_id!==id)throw Error('Server did not confirm this exact answer. It is still queued.');
+      if(stable(payloadFor(b.bundle_id))===body){state.receipts[b.bundle_id]=id;state.receipt_revisions=state.receipt_revisions||{};state.receipt_revisions[b.bundle_id]=r.updated_at;}
+      state.revision++;persist();sent++;
+    }
+    message(sent+' location(s) confirmed received. Keep a JSON backup.');
+  }catch(e){message('Submission not confirmed: '+e.message+' Answers remain on this phone; retry later.');}
+  finally{syncing=false;updateStatus();}
+}
+updateStatus=function(){
+  baseMobileStatus();let bar=$('onlineStatus');if(!bar){bar=node('div','onlineStatus');bar.id='onlineStatus';$('status').after(bar);}
+  $('coreStatus').textContent='Core: '+DATA.bundles.slice(0,84).filter(b=>state.responses[b.bundle_id]?.complete).length+'/84 displays complete. Extension: optional locations 85–148.';
+  if($('identitySummary'))$('identitySummary').textContent=state.person?'Reviewer '+state.person+' · session '+state.session:'Enter your reviewer code and session';
+  const done=Object.values(state.responses).filter(r=>r.complete).length;
+  const received=Object.entries(state.responses).filter(([id,r])=>r.complete&&state.receipt_revisions?.[id]===r.updated_at).length;
+  bar.textContent=(navigator.onLine?'Online':'Offline')+' · '+done+' complete on this phone · '+received+' confirmed received · '+(done-received)+' awaiting submission'+(!CONFIG.submissionUrl?' · coordinator setup needed':'');
+};
+render=function(){
+  const b=bundle(),r=state.responses[b.bundle_id]||{images:{}};const root=$('content');root.replaceChildren();$('jump').value=String(state.position);
+  const h=node('div','bundleHeader');h.append(node('div','eyebrow',label(b.wave)),node('h2','','Location '+(state.position+1)+' of '+DATA.bundles.length));root.append(h);
+  if(!r.safety_locked){
+    root.append(node('p','','Step 1 of 2 · Your safety impression. The feature questions appear after this answer is saved.'));
+    renderSafety(root,b,r);
+    const btn=node('button','primary','Save safety and continue');btn.id='lockSafety';
+    btn.onclick=()=>{if(!photosReady()){message('Wait for all three photographs to load before rating.');return;}const current=state.responses[b.bundle_id];if(!current||safetyErrors(current).length){message('Please answer: '+safetyErrors(current||{}).join('; '));return;}
+      change(a=>{a.safety_locked=true;a.safety_recorded_at=now();a.initial_safety={safety:a.safety,confidence:a.confidence,bundle_light:a.bundle_light};});if($('identityDetails'))$('identityDetails').open=false;render();window.scrollTo(0,0);};root.append(btn);
+  }else{
+    root.append(node('p','savedSafety','Step 2 of 2 · Initial safety saved: '+DATA.safety_choices.find(x=>x[0]===r.safety)?.[1]+'. Your first answer is preserved. Record any correction in the note below.'));
+    renderComponents(root,b,r);root.querySelector('[data-field=bundle_light]').disabled=true;
+    const finish=node('section','finish');selectField(finish,'Do you recognise this place?',[['no','No'],['possibly','Possibly'],['yes','Yes']],r.familiarity,v=>{change(a=>a.familiarity=v);render();},'Use only the photos even if you recognise the place.','familiarity');
+    const l=node('label','','Optional note / correction to initial safety');const note=document.createElement('textarea');note.maxLength=2000;note.value=r.note||'';note.oninput=()=>change(a=>a.note=note.value);l.append(note);finish.append(l,node('small','hint','No names or personal details. Initial safety is kept; corrections can be reviewed by the coordinator.'));
+    const errors=node('div','errorList');errors.id='completionErrors';finish.append(errors);
+    const btn=node('button','primary',r.complete?'Saved complete · next location':'Save location and continue');btn.id='complete';btn.onclick=()=>{
+      if(!editable())return;if(!photosReady()){errors.textContent='All three photos must be loaded. Reconnect or prepare this batch.';return;}const current=state.responses[b.bundle_id];const missing=answerErrors(current,b,true);if(missing.length){errors.textContent='Still needed: '+missing.slice(0,5).join('; ');return;}
+      current.complete=true;current.completed_at=now();current.updated_at=now();state.revision++;persist();
+      if(CONFIG.autoSubmit)syncNow();
+      if(state.position===83){render();message('Core complete. Save a backup and send answers. Continue to the optional extension only if assigned.');return;}
+      if(state.position<DATA.bundles.length-1)navigate(state.position+1);else{render();message('All locations complete. Save a backup and send your answers.');}
+    };finish.append(btn);root.append(finish);
+  }
+  updateStatus();
+};
+async function cacheRange(start,end){
+  if(!('caches'in window)||location.protocol==='file:'){message('Offline preparation requires the hosted HTTPS site or localhost.');return;}
+  const cache=await caches.open('photo-mobile-'+DATA.packet_id);let n=0;
+  try{
+    for(const b of DATA.bundles.slice(start,end))for(const f of b.images){if(!await cache.match(f.src)){const response=await fetch(f.src,{cache:'reload'});if(!response.ok)throw Error('Photo unavailable');await cache.put(f.src,response);}n++;$('offlineStatus').textContent='Preparing '+n+' of '+((end-start)*3)+' photo views…';}
+    $('offlineStatus').textContent='Photos saved for locations '+(start+1)+'–'+end+'. Confirm offline readiness below before leaving Wi-Fi.';
+  }catch(e){$('offlineStatus').textContent='Offline preparation incomplete. Retry on Wi-Fi. '+e.message;}
+}
+window.addEventListener('online',updateStatus);window.addEventListener('offline',updateStatus);
+if('serviceWorker'in navigator&&location.protocol!=='file:')navigator.serviceWorker.register('sw.js').then(()=>navigator.serviceWorker.ready).then(()=>{$('offlineStatus').textContent='Offline page support ready. Prepare photo batches on Wi-Fi before working offline.';}).catch(()=>{$('offlineStatus').textContent='Offline page support unavailable. Keep internet access and save backups.';});
+window.addEventListener('load',()=>{
+  if(hasAnswers()&&$('identityDetails'))$('identityDetails').open=false;
+  $('title').textContent='Photo ratings · reviewer '+DATA.rater;document.title=$('title').textContent+' · mobile 1';
+  $('taskHelp').textContent='One location at a time: rate safety first, save it, then answer the audit and feature questions using all three views. Take breaks and save/send at every session. Core ends at 84; the extension is optional.';
+  $('sendAnswers').onclick=syncNow;$('cacheNext').onclick=()=>cacheRange(state.position,Math.min(state.position+10,DATA.bundles.length));
+  $('cacheCore').onclick=()=>cacheRange(0,84);
+  $('offlineCheck').onclick=async()=>{try{const cache=await caches.open('photo-mobile-'+DATA.packet_id);const current=DATA.bundles.slice(state.position,Math.min(state.position+10,148));let n=0;for(const b of current)for(const f of b.images)if(await cache.match(f.src))n++;$('offlineStatus').textContent=n+'/'+(current.length*3)+' photo views for the current/next ten locations are cached. '+(navigator.serviceWorker.controller?'Page controlled for offline use.':'Reload online once to activate offline support.');}catch(e){message('Offline cache unavailable.');}};
+  render();
+});
+
+let restored=false;
+for(const key of [KEY,KEY+':backup']) {
+  try {
+    const raw=localStorage.getItem(key);if(!raw)continue;
+    const saved=validateIncoming(JSON.parse(raw),true);state={...state,...saved};restored=true;
+    if(key.endsWith(':backup'))message('Recovered the previous browser backup because the latest saved state was unreadable. Import your latest JSON if it has newer answers.');
+    break;
+  } catch(e) {message('A browser save could not be read. Your JSON exports are unchanged. '+e.message);}
+}
+state.position=Number.isInteger(state.position)?Math.max(0,Math.min(state.position,DATA.bundles.length-1)):0;
+state.frameIndex=Number.isInteger(state.frameIndex)?Math.max(0,state.frameIndex):0;
+$('person').value=state.person;$('session').value=state.session;
+$('title').textContent=({photo_safety:'How safe does this place feel?',components:'Describe what you can see',compatibility:'Original safety-scale comparison'}[DATA.task])+' · reviewer '+DATA.rater;
+document.title=$('title').textContent+' · version 5';
+$('taskHelp').textContent=DATA.task==='components'?'Answer once per three-photo location. Start with your requested audit questions, then additional visible features. Only infer what is shown: smells, ownership, housing status, legal occupation and crime cannot be established from appearance. Take breaks and save JSON after every session.':
+  'Inspect the complete photo bundle. Rate your own perception under the conditions shown, using only these photographs. Do not infer nighttime conditions from daylight photos. Original bundles can include different officer visits; if the views show incompatible conditions, choose cannot judge and explain in the optional note.';
+for(const [i,b] of DATA.bundles.entries()){const o=document.createElement('option');o.value=String(i);o.textContent=String(i+1);$('jump').append(o);}
+$('person').oninput=()=>{if(!hasAnswers()){state.person=$('person').value.trim();persist();}};
+$('session').oninput=()=>{state.session=$('session').value.trim();if(state.session)persist();};
+$('prev').onclick=()=>navigate(state.position-1);$('next').onclick=()=>navigate(state.position+1);
+$('jump').onchange=()=>navigate(Number($('jump').value));
+$('unfinished').onclick=()=>{const next=DATA.bundles.findIndex((b,i)=>i>state.position&&!state.responses[b.bundle_id]?.complete);const first=DATA.bundles.findIndex(b=>!state.responses[b.bundle_id]?.complete);if(first<0)message('Every location is complete. Download your final JSON backup.');else navigate(next>=0?next:first);};
+$('export').onclick=()=>{
+  if(!editable())return;
+  try {
+    const exported=snapshot();validateIncoming(exported);
+    const blob=new Blob([JSON.stringify(exported,null,2)],{type:'application/json'}), a=document.createElement('a'), url=URL.createObjectURL(blob);
+    a.href=url;a.download=DATA.study+'_'+DATA.task+'_'+DATA.rater+'_'+now().replaceAll(':','-')+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    state.lastExportRevision=state.revision;persist();message('Backup download requested. Keep the JSON file and return it to the coordinator.');
+  } catch(e) {message('Backup could not be created: '+e.message);}
+};
+$('resume').onchange=async()=>{
+  const file=$('resume').files[0];if(!file)return;
+  try {
+    const v=validateIncoming(JSON.parse(await file.text()));
+    if(hasAnswers()&&state.person!==v.person)throw Error('Another person already has answers in this browser slot. Use the other reviewer slot or a separate browser profile; keep both exports.');
+    const merged=structuredClone(state.responses);let count=0;
+    for(const [id,incoming] of Object.entries(v.responses)) {
+      const existing=merged[id];
+      if(!existing||Date.parse(incoming.updated_at)>Date.parse(existing.updated_at)){merged[id]=incoming;count++;}
+      else if(existing.updated_at===incoming.updated_at&&stable(existing)!==stable(incoming))throw Error('Conflicting answers have the same timestamp. Import stopped; both files are preserved. Ask the coordinator to resolve this.');
+    }
+    state.responses=merged;state.person=v.person;state.session=v.session;state.revision=Math.max(state.revision,v.revision)+1;
+    state.position=Number.isInteger(v.position)?Math.max(0,Math.min(v.position,DATA.bundles.length-1)):0;state.frameIndex=Number.isInteger(v.frameIndex)?Math.max(0,v.frameIndex):0;
+    $('person').value=state.person;$('session').value=state.session;persist();render();message(`Resume complete: ${count} locations restored or updated. Newer browser answers were kept. Download a merged backup.`);
+  } catch(e) {message('Resume stopped. Your current answers were kept. '+e.message);}
+  $('resume').value='';
+};
+$('closeZoom').onclick=()=>$('zoom').close();
+document.addEventListener('visibilitychange',()=>{lastAction=Date.now();if(document.visibilityState==='hidden')persist();});
+window.addEventListener('pagehide',persist);
+window.reviewApp={packet:DATA,getState:()=>structuredClone(state),validate:validateIncoming};
+render();
+</script></body></html>
