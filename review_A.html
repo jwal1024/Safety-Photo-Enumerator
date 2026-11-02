@@ -381,7 +381,7 @@ details > summary {
 }
 
 </style></head>
-<body><header><div class="topline"><a href="index.html">← Review home</a><span>MOBILE VERSION 1 · SAME V5 SAMPLE</span></div><h1 id="title"></h1>
+<body><header><div class="topline"><span>MOBILE VERSION 1.1 · SAME V5 SAMPLE</span></div><h1 id="title"></h1>
 <div class="toolbar"><button id="export" class="primary">Save JSON</button><label class="filebutton">Resume JSON<input id="resume" type="file" aria-label="Resume from JSON" accept=".json,application/json"></label><button id="sendAnswers">Send saved answers</button><button id="unfinished">Next unfinished</button></div>
 <div id="status" role="status" aria-live="polite"></div><div id="message" role="alert" hidden></div></header>
 <main><details id="identityDetails" open><summary id="identitySummary">Reviewer and session</summary><section class="identity"><label>Your reviewer code<input id="person" maxlength="80" placeholder="For example: reviewer-07" autocomplete="off"></label><label>Session code or date<input id="session" placeholder="For example: 2026-10-21-morning" autocomplete="off"></label></section></details>
@@ -776,12 +776,40 @@ updateStatus=function(){
   const received=Object.entries(state.responses).filter(([id,r])=>r.complete&&state.receipt_revisions?.[id]===r.updated_at).length;
   bar.textContent=(navigator.onLine?'Online':'Offline')+' · '+done+' complete on this phone · '+received+' confirmed received · '+(done-received)+' awaiting submission'+(!CONFIG.submissionUrl?' · coordinator setup needed':'');
 };
+function markAllUnusable(b){
+  if(!editable())return;
+  if(!photosReady()){message('Wait for all three photographs to load. If a photo will not load, reconnect and try again. Do not mark it unusable.');return;}
+  change(a=>{
+    const t=now();a.bundle_light=UNKNOWN;a.safety=UNKNOWN;a.confidence='low';a.viewed_all=true;a.familiarity='no';
+    a.safety_locked=true;a.safety_recorded_at=t;a.initial_safety={safety:UNKNOWN,confidence:'low',bundle_light:UNKNOWN};
+    a.image_quality=Object.fromEntries(b.images.map(f=>[f.image_id,'unusable']));
+    a.answers=Object.fromEntries(DATA.items.map(s=>[s.name,s.multi?[UNKNOWN]:UNKNOWN]));
+    delete a.lighting_other;delete a.area_other;delete a.green_other;a.all_photos_unusable=true;
+  });
+  const r=state.responses[b.bundle_id];r.complete=true;r.completed_at=now();r.updated_at=now();state.revision++;persist();
+  message('');if($('identityDetails'))$('identityDetails').open=false;render();window.scrollTo(0,0);
+}
+function renderUnusablePrompt(root,b){
+  const card=node('section','ratingCard');card.id='unusableCard';
+  const btn=node('button','','Yes, all three photos are unusable');btn.id='allUnusable';btn.onclick=()=>markAllUnusable(b);
+  card.append(node('h3','','Are all three photos unusable?'),node('p','muted','Use this only if none of the three photos shows enough to answer. It marks every question for this location “cannot assess” and completes the location. If any photo is usable, carry on below.'),btn);
+  root.querySelector('.photoGrid').after(card);
+}
+function renderUnusableDone(root,b){
+  const card=node('section','ratingCard');card.id='unusableDone';
+  const undo=node('button','','Undo and answer this location');undo.id='undoUnusable';
+  undo.onclick=()=>{delete state.responses[b.bundle_id];state.revision++;persist();message('');render();};
+  const next=node('button','primary','Next location →');next.disabled=state.position===DATA.bundles.length-1;next.onclick=()=>navigate(state.position+1);
+  card.append(node('p','savedSafety','All three photos marked unusable. Every question is saved as “cannot assess” and this location is complete.'),next,undo);
+  root.append(card);
+}
 render=function(){
   const b=bundle(),r=state.responses[b.bundle_id]||{images:{}};const root=$('content');root.replaceChildren();$('jump').value=String(state.position);
   const h=node('div','bundleHeader');h.append(node('div','eyebrow',label(b.wave)),node('h2','','Location '+(state.position+1)+' of '+DATA.bundles.length));root.append(h);
+  if(r.all_photos_unusable){renderUnusableDone(root,b);updateStatus();return;}
   if(!r.safety_locked){
     root.append(node('p','','Step 1 of 2 · Your safety impression. The feature questions appear after this answer is saved.'));
-    renderSafety(root,b,r);
+    renderSafety(root,b,r);renderUnusablePrompt(root,b);
     const btn=node('button','primary','Save safety and continue');btn.id='lockSafety';
     btn.onclick=()=>{if(!photosReady()){message('Wait for all three photographs to load before rating.');return;}const current=state.responses[b.bundle_id];if(!current||safetyErrors(current).length){message('Please answer: '+safetyErrors(current||{}).join('; '));return;}
       change(a=>{a.safety_locked=true;a.safety_recorded_at=now();a.initial_safety={safety:a.safety,confidence:a.confidence,bundle_light:a.bundle_light};});if($('identityDetails'))$('identityDetails').open=false;render();window.scrollTo(0,0);};root.append(btn);
